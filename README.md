@@ -30,28 +30,40 @@ $ yarn add h5-video-player
 ```
 
 ## Use
-```javascript
-import H5VideoPlayer from 'h5-video-player';
+  ```javascript
+  import H5VideoPlayer from 'h5-video-player';
+  # OR
+  let H5VideoPlayer = require('h5-video-player');
+  ```
 
-// init player
-let videoPlayer = new H5VideoPlayer({
-  source: source,
-  // other options ...
-}).init();
-
-// load player
-videoPlayer.load();
-```
+  ```javascript
+  let videoPlayer = new H5VideoPlayer(source, [, options]);
+  videoPlayer.load();
+  ```
 
 * options
-  * `context`: [element] Context Wrapper Element. default: body
   * `source`: [string] video url
-  * `control`: [boolean] Whether the user can control. default: false
-  * `autoPlay`: [boolean] Whether to play immediately after loading. default: false
-  * `autoClose`: [boolean] Whether to close immediately when the video played off. default: true
-  * `orientation`: [string] landscape / portrait. default: portrait.
-  * `aspectRatio`: [number] Video aspect ratio. default: 9 / 16.
+  * `context`: [element|string] Context Wrapper Element. Default `'body'`.
+  * `control`: [boolean] Whether the user can control. Default `false`.
+  * `autoPlay`: [boolean] Whether to play immediately after loading. Default `false`.
+  * `autoClose`: [boolean] Whether to close immediately when the video played off. Default `true`.
+  * `orientation`: [string] landscape / portrait. Default `'portrait'`.
+  * `aspectRatio`: [number] Video aspect ratio. Default `9 / 16`.
 
 * function
+  * `load()`: init video
   * `play()`: video play
   * `pause()`: video pause
+
+### Use in browser
+```html
+<div id="videoWrapper"></div>
+<script src="H5VideoPlayer.min.js"></script>
+<script>
+  var source = 'media/video.mp4';
+  var video = new H5VideoPlayer(source,{
+    context: '#videoWrapper',
+    control: true,
+  }).load();
+</script>
+```

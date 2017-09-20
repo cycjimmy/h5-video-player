@@ -1,12 +1,14 @@
 {
   "name": "h5-video-player",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Browser full screen H5 video player",
-  "main": "dist/index.js",
+  "main": "dist/H5VideoPlayer.js",
+  "module": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src --out-dir dist --source-maps",
-    "prepublish": "npm run build"
+    "build": "webpack --progress --display-modules --display-reasons --display-error-details --color",
+    "build:production": "cross-env NODE_ENV=production webpack --progress --optimize-minimize",
+    "prepublish": "npm run build && npm run build:production"
   },
   "repository": {
     "type": "git",
@@ -23,8 +25,21 @@
   },
   "homepage": "https://github.com/cycjimmy/h5-video-player#readme",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^21.0.2",
+    "babel-loader": "^7.1.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-preset-env": "^1.6.0"
+    "babel-preset-env": "^1.6.0",
+    "clean-webpack-plugin": "^0.1.16",
+    "cross-env": "^5.0.5",
+    "html-loader": "^0.5.1",
+    "jest": "^21.1.0",
+    "regenerator-runtime": "^0.11.0",
+    "uglify-js": "^3.1.1",
+    "uglifyjs-webpack-plugin": "^0.4.6",
+    "webpack": "^3.6.0"
+  },
+  "engines": {
+    "node": ">=4"
   }
 }

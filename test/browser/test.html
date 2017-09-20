@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>video test</title>
+  <style>
+    html, body {
+      height: 100%;
+    }
+
+    #videoWrapper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+<div id="videoWrapper"></div>
+
+<script src="../../dist/H5VideoPlayer.js"></script>
+<script>
+  var
+    source = 'https://cycjimmy.github.io/staticFiles/media/Sony_test_video_vertical_720x1280.mp4'
+  ;
+
+  var
+    video = new H5VideoPlayer(source, {
+      context: '#videoWrapper',
+      control: true,
+    }).load()
+  ;
+  console.log(video);
+</script>
+
+</body>
+</html>
