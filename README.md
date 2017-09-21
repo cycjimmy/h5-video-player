@@ -22,6 +22,8 @@
 [download-url]: https://npmjs.org/package/h5-video-player
 [license-image]: https://img.shields.io/npm/l/h5-video-player.svg?style=flat-square
 
+Browser full screen H5 video player
+
 ## Install
 ```shell
 $ npm install h5-video-player --save
@@ -49,6 +51,9 @@ $ yarn add h5-video-player
   * `autoClose`: [boolean] Whether to close immediately when the video played off. Default `true`.
   * `orientation`: [string] landscape / portrait. Default `'portrait'`.
   * `aspectRatio`: [number] Video aspect ratio. Default `9 / 16`.
+  * `hookInPlay`: [function] The hook function when the video play.
+  * `hookInPause`: [function] The hook function when the video pause.
+  * `hookInStop`: [function] The hook function when the video stop.
 
 * function
   * `load()`: init video
@@ -61,7 +66,7 @@ $ yarn add h5-video-player
 <script src="H5VideoPlayer.min.js"></script>
 <script>
   var source = 'media/video.mp4';
-  var video = new H5VideoPlayer(source,{
+  var video = new H5VideoPlayer(source, {
     context: '#videoWrapper',
     control: true,
   }).load();

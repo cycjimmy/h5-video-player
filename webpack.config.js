@@ -44,19 +44,7 @@ var config = {
           path.resolve('node_modules'),
         ],
         loader: 'babel-loader',
-      },
-
-      // html template
-      {
-        test: /\.html/,
-        include: [
-          path.resolve('src'),
-        ],
-        exclude: [
-          path.resolve('node_modules'),
-        ],
-        loader: 'html-loader',
-      },
+      }
     ]
   },
 

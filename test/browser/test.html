@@ -29,6 +29,15 @@
     video = new H5VideoPlayer(source, {
       context: '#videoWrapper',
       control: true,
+      hookInPlay: function () {
+        console.log('hookInPlay');
+      },
+      hookInPause: function () {
+        console.log('hookInPause');
+      },
+      hookInStop: function () {
+        console.log('hookInStop');
+      }
     }).load()
   ;
   console.log(video);
