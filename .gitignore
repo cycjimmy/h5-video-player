@@ -55,4 +55,5 @@ npm-debug.log
 yarn-error.log
 
 # project
-temp
+.publish
+demo/H5VideoPlayer.min.js

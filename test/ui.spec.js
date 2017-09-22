@@ -3,7 +3,7 @@ import H5VideoPlayer from '../dist/H5VideoPlayer';
 describe('ui spec', () => {
   const
     videoWrapper = document.createElement('div')
-    , source = 'https://cycjimmy.github.io/staticFiles/media/Sony_test_video_vertical_720x1280.mp4'
+    , source = 'https://raw.githubusercontent.com/cycjimmy/staticFiles/storage/media/Sony_test_video_vertical_720x1280.mp4'
   ;
 
   videoWrapper.style.width = '360px';

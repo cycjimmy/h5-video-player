@@ -22,7 +22,7 @@
 [download-url]: https://npmjs.org/package/h5-video-player
 [license-image]: https://img.shields.io/npm/l/h5-video-player.svg?style=flat-square
 
-Browser full screen H5 video player
+Browser full screen H5 video player. [Demo](https://cycjimmy.github.io/h5-video-player/)
 
 ## Install
 ```shell
@@ -43,17 +43,20 @@ $ yarn add h5-video-player
   videoPlayer.load();
   ```
 
+* `source`: Video source allows three types
+  * [String]: Video url. E.g: `'video.mp4'`
+  * [Object]: Video url and type. E.g: `{url: 'video.mp4', type:'mp4'}`
+  * [Array]: E.g: `[{url: 'video.mp4', type:'mp4'},{},...]`
 * options
-  * `source`: [string] video url
-  * `context`: [element|string] Context Wrapper Element. Default `'body'`.
-  * `control`: [boolean] Whether the user can control. Default `false`.
-  * `autoPlay`: [boolean] Whether to play immediately after loading. Default `false`.
-  * `autoClose`: [boolean] Whether to close immediately when the video played off. Default `true`.
-  * `orientation`: [string] landscape / portrait. Default `'portrait'`.
-  * `aspectRatio`: [number] Video aspect ratio. Default `9 / 16`.
-  * `hookInPlay`: [function] The hook function when the video play.
-  * `hookInPause`: [function] The hook function when the video pause.
-  * `hookInStop`: [function] The hook function when the video stop.
+  * `context`: [Element|String] Context Wrapper Element. Default `'body'`.
+  * `control`: [Boolean] Whether the user can control. Default `false`.
+  * `autoPlay`: [Boolean] Whether to play immediately after loading. Default `false`.
+  * `autoClose`: [Boolean] Whether to close immediately when the video played off. Default `true`.
+  * `orientation`: [String] landscape / portrait. Default `'portrait'`.
+  * `aspectRatio`: [Number] Video aspect ratio. Default `9 / 16`.
+  * `hookInPlay`: [Function] The hook function when the video play.
+  * `hookInPause`: [Function] The hook function when the video pause.
+  * `hookInStop`: [Function] The hook function when the video stop.
 
 * function
   * `load()`: init video

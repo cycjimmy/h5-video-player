@@ -43,7 +43,19 @@ var config = {
         exclude: [
           path.resolve('node_modules'),
         ],
-        loader: 'babel-loader',
+        loader: 'babel-loader'
+      },
+
+      // Pug template
+      {
+        test: /\.pug$/,
+        include: [
+          path.resolve('src')
+        ],
+        exclude: [
+          path.resolve('node_modules')
+        ],
+        loader: 'pug-loader'
       }
     ]
   },

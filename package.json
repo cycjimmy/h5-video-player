@@ -1,6 +1,6 @@
 {
   "name": "h5-video-player",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Browser full screen H5 video player",
   "main": "dist/H5VideoPlayer.js",
   "module": "src/index.js",
@@ -8,7 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --progress --display-modules --display-reasons --display-error-details --color",
     "build:production": "cross-env NODE_ENV=production webpack --progress --optimize-minimize",
-    "prepublish": "npm run build && npm run build:production"
+    "server": "gulp server",
+    "deploy": "gulp deploy",
+    "prepublish": "npm run build && npm run build:production && gulp copy"
   },
   "repository": {
     "type": "git",
@@ -32,7 +34,13 @@
     "babel-preset-env": "^1.6.0",
     "clean-webpack-plugin": "^0.1.16",
     "cross-env": "^5.0.5",
+    "gulp": "^3.9.1",
+    "gulp-copy": "^1.0.1",
+    "gulp-gh-pages": "^0.5.4",
+    "gulp-webserver": "^0.9.1",
     "jest": "^21.1.0",
+    "pug": "^2.0.0-rc.4",
+    "pug-loader": "^2.3.0",
     "regenerator-runtime": "^0.11.0",
     "uglify-js": "^3.1.1",
     "uglifyjs-webpack-plugin": "^0.4.6",
