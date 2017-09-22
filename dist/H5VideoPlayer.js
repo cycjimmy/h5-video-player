@@ -342,8 +342,8 @@ function pug_rethrow(err, filename, lineno, str){
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__playButton_pug__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__playButton_pug___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__playButton_pug__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__container_pug__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__container_pug___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__container_pug__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wrapper_pug__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wrapper_pug___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__wrapper_pug__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 // template
@@ -352,8 +352,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var H5VideoPlayer = function () {
   /**
-   * @param context
    * @param source
+   * @param context
    * @param control
    * @param autoPlay
    * @param autoClose
@@ -399,6 +399,7 @@ var H5VideoPlayer = function () {
     };
 
     this.container = null;
+    this.wrapper = null;
     this.video = null;
     this.mask = null;
     this.playButton = null;
@@ -410,6 +411,20 @@ var H5VideoPlayer = function () {
     // container
     this.container = document.createElement('div');
     _addStyles(this.container, {
+      position: 'relative',
+      width: '100%',
+      height: '100%',
+      overflow: 'hidden'
+    });
+
+    this.initWrapper();
+    this.container.appendChild(this.wrapper);
+  };
+
+  H5VideoPlayer.prototype.initWrapper = function initWrapper() {
+    // wrapper
+    this.wrapper = document.createElement('div');
+    _addStyles(this.wrapper, {
       position: 'absolute',
       left: '-100%',
       top: '-100%',
@@ -425,13 +440,13 @@ var H5VideoPlayer = function () {
       overflow: 'hidden'
     });
 
-    this.container.innerHTML = __WEBPACK_IMPORTED_MODULE_1__container_pug___default()({
+    this.wrapper.innerHTML = __WEBPACK_IMPORTED_MODULE_1__wrapper_pug___default()({
       source: this.options.source,
       orientation: this.options.orientation
     });
 
     // video
-    this.video = this.container.querySelector('video');
+    this.video = this.wrapper.querySelector('video');
     _addStyles(this.video, {
       position: 'absolute',
       left: '0',
@@ -443,8 +458,8 @@ var H5VideoPlayer = function () {
       objectPosition: '50% 50%'
     });
 
-    // mask
-    this.mask = this.container.querySelector('div');
+    // mask: used to control video
+    this.mask = this.wrapper.querySelector('div');
     _addStyles(this.mask, {
       position: 'absolute',
       left: '0',
@@ -469,7 +484,7 @@ var H5VideoPlayer = function () {
 
       this.playButton.innerHTML = __WEBPACK_IMPORTED_MODULE_0__playButton_pug___default()();
 
-      this.container.appendChild(this.playButton);
+      this.wrapper.appendChild(this.playButton);
     }
   };
 

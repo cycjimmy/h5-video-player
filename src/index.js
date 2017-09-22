@@ -1,6 +1,6 @@
 // template
 import playButtonTemplate from './playButton.pug';
-import containerTemplate from './container.pug';
+import wrapperTemplate from './wrapper.pug';
 
 export default class H5VideoPlayer {
   /**
@@ -46,6 +46,7 @@ export default class H5VideoPlayer {
     };
 
     this.container = null;
+    this.wrapper = null;
     this.video = null;
     this.mask = null;
     this.playButton = null;
@@ -57,6 +58,20 @@ export default class H5VideoPlayer {
     // container
     this.container = document.createElement('div');
     _addStyles(this.container, {
+      position: 'relative',
+      width: '100%',
+      height: '100%',
+      overflow: 'hidden',
+    });
+
+    this.initWrapper();
+    this.container.appendChild(this.wrapper);
+  };
+
+  initWrapper() {
+    // wrapper
+    this.wrapper = document.createElement('div');
+    _addStyles(this.wrapper, {
       position: 'absolute',
       left: '-100%',
       top: '-100%',
@@ -72,13 +87,13 @@ export default class H5VideoPlayer {
       overflow: 'hidden',
     });
 
-    this.container.innerHTML = containerTemplate({
+    this.wrapper.innerHTML = wrapperTemplate({
       source: this.options.source,
       orientation: this.options.orientation,
     });
 
     // video
-    this.video = this.container.querySelector('video');
+    this.video = this.wrapper.querySelector('video');
     _addStyles(this.video, {
       position: 'absolute',
       left: '0',
@@ -90,8 +105,8 @@ export default class H5VideoPlayer {
       objectPosition: '50% 50%',
     });
 
-    // mask
-    this.mask = this.container.querySelector('div');
+    // mask: used to control video
+    this.mask = this.wrapper.querySelector('div');
     _addStyles(this.mask, {
       position: 'absolute',
       left: '0',
@@ -116,7 +131,7 @@ export default class H5VideoPlayer {
 
       this.playButton.innerHTML = playButtonTemplate();
 
-      this.container.appendChild(this.playButton);
+      this.wrapper.appendChild(this.playButton);
     }
   };
 
