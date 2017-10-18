@@ -59,6 +59,9 @@ export default class H5VideoPlayer {
     this.container = document.createElement('div');
     _addStyles(this.container, {
       position: 'absolute',
+      left: '0',
+      top: '0',
+      zIndex: '9999',
       width: '100%',
       height: '100%',
       overflow: 'hidden',
