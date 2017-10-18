@@ -1,0 +1,61 @@
+%abs {
+  position: absolute;
+}
+
+%full {
+  @extend %abs;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+%keepCenter {
+  @extend %abs;
+  left: -100%;
+  top: -100%;
+  right: -100%;
+  bottom: -100%;
+  margin: auto;
+}
+
+.container {
+  @extend %full;
+  z-index: 9999;
+
+  overflow: hidden;
+}
+
+.wrapper {
+  @extend %keepCenter;
+  z-index: 1;
+  overflow: hidden;
+
+  background-color: black;
+  transform-origin: 50% 50%;
+}
+
+.videoWrapperForConstraintRatio {
+  @extend %keepCenter;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.video {
+  @extend %full;
+  z-index: -1;
+
+  object-fit: fill;
+  object-position: 50% 50%;
+}
+
+.mask {
+  @extend %full;
+  z-index: 10;
+}
+
+.playButtonWrapper {
+  @extend %full;
+  z-index: 100;
+  background-color: rgba(black, .1);
+}

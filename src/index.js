@@ -2,6 +2,9 @@
 import playButtonTemplate from './playButton.pug';
 import wrapperTemplate from './wrapper.pug';
 
+// style
+import _style from './style.scss';
+
 export default class H5VideoPlayer {
   /**
    * @param source
@@ -11,6 +14,7 @@ export default class H5VideoPlayer {
    * @param autoClose
    * @param orientation
    * @param aspectRatio
+   * @param disableRotation
    * @param hookInPlay
    * @param hookInPause
    * @param hookInStop
@@ -22,6 +26,7 @@ export default class H5VideoPlayer {
     autoClose = true,
     orientation = 'portrait',
     aspectRatio = 9 / 16,
+    disableRotation = false,
     hookInPlay = () => {
     },
     hookInPause = () => {
@@ -40,6 +45,7 @@ export default class H5VideoPlayer {
       autoClose: autoClose,
       orientation: orientation,
       aspectRatio: aspectRatio,
+      disableRotation: disableRotation,
       hookInPlay: hookInPlay,
       hookInPause: hookInPause,
       hookInStop: hookInStop,
@@ -57,90 +63,45 @@ export default class H5VideoPlayer {
   init() {
     // container
     this.container = document.createElement('div');
-    _addStyles(this.container, {
-      position: 'absolute',
-      left: '0',
-      top: '0',
-      zIndex: '9999',
-      width: '100%',
-      height: '100%',
-      overflow: 'hidden',
-    });
-
-    this.initWrapper();
-    this.container.appendChild(this.wrapper);
+    this.container.classList.add(_style.container);
   };
 
   initWrapper() {
     // wrapper
     this.wrapper = document.createElement('div');
-    _addStyles(this.wrapper, {
-      position: 'absolute',
-      left: '-100%',
-      top: '-100%',
-      right: '-100%',
-      bottom: '-100%',
-      margin: 'auto',
-      width: '100vw',
-      minWidth: 100 * this.options.aspectRatio + 'vh',
-      height: 100 / this.options.aspectRatio + 'vw',
-      minHeight: '100vh',
-      backgroundColor: 'black',
-      zIndex: '9999',
-      overflow: 'hidden',
-    });
+    this.wrapper.classList.add(_style.wrapper);
 
     this.wrapper.innerHTML = wrapperTemplate({
       source: this.options.source,
       orientation: this.options.orientation,
+      _style,
     });
 
     // video
-    this.video = this.wrapper.querySelector('video');
-    _addStyles(this.video, {
-      position: 'absolute',
-      left: '0',
-      top: '0',
-      width: '100%',
-      height: '100%',
-      zIndex: '-1',
-      objectFit: 'fill',
-      objectPosition: '50% 50%',
-    });
+    this.videoWrapperForConstraintRatio = this.wrapper.querySelector('.' + _style.videoWrapperForConstraintRatio);
+    this.video = this.wrapper.querySelector('.' + _style.video);
 
     // mask: used to control video
-    this.mask = this.wrapper.querySelector('div');
-    _addStyles(this.mask, {
-      position: 'absolute',
-      left: '0',
-      top: '0',
-      width: '100%',
-      height: '100%',
-      zIndex: '10',
-    });
+    this.mask = this.wrapper.querySelector('.' + _style.mask);
 
     // playButton
     if (this.options.control) {
       this.playButton = document.createElement('div');
-      _addStyles(this.playButton, {
-        position: 'absolute',
-        left: '0',
-        top: '0',
-        width: '100%',
-        height: '100%',
-        zIndex: '100',
-        backgroundColor: 'rgba(0, 0, 0, .1)',
-      });
+      this.playButton.classList.add(_style.playButtonWrapper);
 
       this.playButton.innerHTML = playButtonTemplate();
 
       this.wrapper.appendChild(this.playButton);
     }
+
+    this._assignWrapperStyle();
   };
 
   load() {
     if (!this.context.contains(this.container)) {
       this.context.appendChild(this.container);
+      this.initWrapper();
+      this.container.appendChild(this.wrapper);
     }
 
     this.eventBind();
@@ -209,6 +170,83 @@ export default class H5VideoPlayer {
   _remove() {
     this.context.removeChild(this.container);
   };
+
+  _assignWrapperStyle() {
+    let
+      containerRect = () => this.container.getBoundingClientRect()
+
+      , orientationchangeEvt = "onorientationchange" in window
+      ? "orientationchange"
+      : "resize"
+
+
+      , _changeStyle = () => {
+        let
+          containerRectWidth = containerRect().width
+          , containerRectHeight = containerRect().height
+        ;
+
+        if (_judgePhoneOrientation() === this.options.orientation) {
+          _addStyles(this.wrapper, {
+            width: containerRectWidth + 'px',
+            height: containerRectHeight + 'px',
+            transform: '',
+          });
+        } else {
+          // Adjust the video orientation
+          _addStyles(this.wrapper, {
+            width: containerRectHeight + 'px',
+            height: containerRectWidth + 'px',
+            transform: 'rotate(-90deg)',
+          });
+        }
+
+        // set videoWrapperForConstraintRatio width&height
+        setTimeout(() => {
+          let
+            wrapperWidth = Number.parseInt(this.wrapper.style.width)
+            , wrapperHeight = Number.parseInt(this.wrapper.style.height)
+            , preComputedHeight = wrapperWidth / this.options.aspectRatio
+          ;
+
+          console.log(wrapperWidth);
+
+          if (preComputedHeight >= wrapperHeight) { // based on wrapperWidth
+            _addStyles(this.videoWrapperForConstraintRatio, {
+              width: wrapperWidth + 'px',
+              height: preComputedHeight + 'px',
+            });
+          } else {  // based on wrapperHeight
+            _addStyles(this.videoWrapperForConstraintRatio, {
+              width: wrapperHeight * this.options.aspectRatio + 'px',
+              height: wrapperHeight + 'px',
+            });
+          }
+        }, 0);
+
+      }
+      , _changeOrientation = () => {
+        window.removeEventListener(orientationchangeEvt, () => _changeOrientation(), false);
+
+        setTimeout(() => {
+          _changeStyle();
+          window.addEventListener(orientationchangeEvt, () => _changeOrientation(), false);
+        }, 500);
+      }
+    ;
+
+    if (this.options.disableRotation) {
+      _changeStyle();
+
+      window.addEventListener(orientationchangeEvt, () => _changeOrientation(), false);
+
+    } else {
+      _addStyles(this.wrapper, {
+        width: containerRect().width + 'px',
+        height: containerRect().height + 'px',
+      });
+    }
+  };
 }
 
 // private
@@ -221,5 +259,23 @@ let
 
   , isString = (str) => {
     return (typeof str === 'string') && str.constructor === String;
+  }
+
+  , _judgePhoneOrientation = () => {
+    let
+      clientWidth = document.documentElement.clientWidth
+      , clientHeight = document.documentElement.clientHeight
+      , result = ''
+    ;
+
+    if (clientWidth > clientHeight) {
+      result = 'landscape';
+    } else {
+      result = 'portrait';
+    }
+
+    console.log('_judgePhoneOrientation: ' + result);
+
+    return result;
   }
 ;

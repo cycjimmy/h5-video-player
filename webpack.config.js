@@ -8,6 +8,7 @@ var
 
 var
   IS_PRODUCTION = process.env.NODE_ENV === 'production'
+  , cssIdentifier = IS_PRODUCTION ? '[hash:base64:10]' : '[path][name]__[local]'
 ;
 
 var config = {
@@ -44,6 +45,33 @@ var config = {
           path.resolve('node_modules'),
         ],
         loader: 'babel-loader'
+      },
+
+      // Style
+      {
+        test: /\.scss$/,
+        exclude: [
+          path.resolve('node_modules'),
+        ],
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 2,
+              modules: true,
+              localIdentName: cssIdentifier,
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              outputStyle: 'expanded',
+            },
+          },
+        ]
       },
 
       // Pug template

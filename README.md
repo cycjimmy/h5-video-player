@@ -54,6 +54,7 @@ $ yarn add h5-video-player
   * `autoClose`: [Boolean] Whether to close immediately when the video played off. Default `true`.
   * `orientation`: [String] landscape / portrait. Default `'portrait'`.
   * `aspectRatio`: [Number] Video aspect ratio. Default `9 / 16`.
+  * `disableRotation`: [Boolean] Whether to prohibit automatic rotation. Default `false`.
   * `hookInPlay`: [Function] The hook function when the video play.
   * `hookInPause`: [Function] The hook function when the video pause.
   * `hookInStop`: [Function] The hook function when the video stop.
