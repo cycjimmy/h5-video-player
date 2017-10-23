@@ -22,8 +22,14 @@
 .container {
   @extend %full;
   z-index: 9999;
+  display: none;
 
+  background-color: black;
   overflow: hidden;
+
+  &.show {
+    display: block;
+  }
 }
 
 .wrapper {
@@ -58,4 +64,19 @@
   @extend %full;
   z-index: 100;
   background-color: rgba(black, .1);
+}
+
+.playButton {
+  @extend %keepCenter;
+
+  max-width: 60px;
+  max-height: 60px;
+  cursor: pointer;
+  opacity: .6;
+}
+
+.playButtonSvg {
+  max-width: 60px;
+  max-height: 60px;
+  fill: #fff;
 }

@@ -2,7 +2,6 @@ var
   path = require('path')
   , gulp = require('gulp')
   , gulpCopy = require('gulp-copy')
-  , webserver = require('gulp-webserver')
   , ghPages = require('gulp-gh-pages')
 ;
 
@@ -21,20 +20,11 @@ gulp.task('copy', function () {
     }));
 });
 
-// server
-gulp.task('server', function () {
-  return gulp
-    .src('demo')
-    .pipe(webserver({
-      livereload: true,
-      open: true
-    }));
-});
 
 // Deploy to ghPages
 gulp.task('deploy', function () {
   return gulp
-    .src('demo/**/*')
+    .src(['dist/**/*','!dist/**/*.map'])
     .pipe(ghPages());
 });
 

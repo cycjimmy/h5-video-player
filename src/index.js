@@ -12,9 +12,12 @@ export default class H5VideoPlayer {
    * @param control
    * @param autoPlay
    * @param autoClose
+   * @param preload
    * @param orientation
    * @param aspectRatio
    * @param disableRotation
+   * @param picMode
+   * @param fixAndroidWechatContinue
    * @param hookInPlay
    * @param hookInPause
    * @param hookInStop
@@ -24,9 +27,12 @@ export default class H5VideoPlayer {
     control = false,
     autoPlay = false,
     autoClose = true,
+    preload = true,
     orientation = 'portrait',
     aspectRatio = 9 / 16,
     disableRotation = false,
+    picMode = false,
+    fixAndroidWechatContinue = false,
     hookInPlay = () => {
     },
     hookInPause = () => {
@@ -43,9 +49,12 @@ export default class H5VideoPlayer {
       control: control,
       autoPlay: autoPlay,
       autoClose: autoClose,
+      preload: preload,
       orientation: orientation,
       aspectRatio: aspectRatio,
       disableRotation: disableRotation,
+      picMode: picMode,
+      fixAndroidWechatContinue: fixAndroidWechatContinue,
       hookInPlay: hookInPlay,
       hookInPause: hookInPause,
       hookInStop: hookInStop,
@@ -57,10 +66,15 @@ export default class H5VideoPlayer {
     this.mask = null;
     this.playButton = null;
 
-    this.init();
+    this.initContainer();
+    this.initWrapper();
+
+    if (this.options.preload) {
+      this.init();
+    }
   };
 
-  init() {
+  initContainer() {
     // container
     this.container = document.createElement('div');
     this.container.classList.add(_style.container);
@@ -89,20 +103,30 @@ export default class H5VideoPlayer {
       this.playButton = document.createElement('div');
       this.playButton.classList.add(_style.playButtonWrapper);
 
-      this.playButton.innerHTML = playButtonTemplate();
+      // picMode
+      if (!this.options.picMode) {
+        this.playButton.innerHTML = playButtonTemplate({
+          _style,
+        });
+      }
 
       this.wrapper.appendChild(this.playButton);
     }
 
-    this._assignWrapperStyle();
+    this.container.appendChild(this.wrapper);
+  };
+
+  init() {
+    this.context.appendChild(this.container);
   };
 
   load() {
     if (!this.context.contains(this.container)) {
-      this.context.appendChild(this.container);
-      this.initWrapper();
-      this.container.appendChild(this.wrapper);
+      this.init();
     }
+
+    this.container.classList.add(_style.show);
+    this._assignWrapperStyle();
 
     this.eventBind();
 
@@ -125,6 +149,12 @@ export default class H5VideoPlayer {
 
       this.playButton.addEventListener('click', () => {
         this.play();
+      });
+    } else if (this.options.fixAndroidWechatContinue) {
+      this.video.addEventListener('click', () => {
+        if (!this._isPlaying()) {
+          this.play();
+        }
       });
     }
 
@@ -175,11 +205,6 @@ export default class H5VideoPlayer {
     let
       containerRect = () => this.container.getBoundingClientRect()
 
-      , orientationchangeEvt = "onorientationchange" in window
-      ? "orientationchange"
-      : "resize"
-
-
       , _changeStyle = () => {
         let
           containerRectWidth = containerRect().width
@@ -223,14 +248,14 @@ export default class H5VideoPlayer {
             });
           }
         }, 0);
-
       }
+
       , _changeOrientation = () => {
-        window.removeEventListener(orientationchangeEvt, () => _changeOrientation(), false);
+        window.removeEventListener(_orientationchangeEvt, () => _changeOrientation());
 
         setTimeout(() => {
           _changeStyle();
-          window.addEventListener(orientationchangeEvt, () => _changeOrientation(), false);
+          window.addEventListener(_orientationchangeEvt, () => _changeOrientation(), false);
         }, 500);
       }
     ;
@@ -238,7 +263,7 @@ export default class H5VideoPlayer {
     if (this.options.disableRotation) {
       _changeStyle();
 
-      window.addEventListener(orientationchangeEvt, () => _changeOrientation(), false);
+      window.addEventListener(_orientationchangeEvt, () => _changeOrientation(), false);
 
     } else {
       _addStyles(this.wrapper, {
@@ -260,6 +285,10 @@ let
   , isString = (str) => {
     return (typeof str === 'string') && str.constructor === String;
   }
+
+  , _orientationchangeEvt = "onorientationchange" in window
+  ? "orientationchange"
+  : "resize"
 
   , _judgePhoneOrientation = () => {
     let

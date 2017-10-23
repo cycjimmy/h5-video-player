@@ -2,21 +2,25 @@ var
   path = require('path')
 
   // webpack plugin
+  , BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+  , HtmlWebpackPlugin = require('html-webpack-plugin')
   , UglifyJsPlugin = require('uglifyjs-webpack-plugin')
   , CleanWebpackPlugin = require('clean-webpack-plugin')
 ;
 
 var
-  IS_PRODUCTION = process.env.NODE_ENV === 'production'
+  IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
+  , IS_PRODUCTION = process.env.NODE_ENV === 'production'
   , cssIdentifier = IS_PRODUCTION ? '[hash:base64:10]' : '[path][name]__[local]'
 ;
 
 var config = {
-  devtool: 'source-map',
   entry: path.resolve('src', 'index.js'),
 
   output: {
-    path: path.resolve('dist'),
+    path: IS_DEVELOPMENT
+      ? path.resolve('dist')
+      : path.resolve('build'),
     filename: IS_PRODUCTION
       ? 'H5VideoPlayer.min.js'
       : 'H5VideoPlayer.js',
@@ -78,7 +82,8 @@ var config = {
       {
         test: /\.pug$/,
         include: [
-          path.resolve('src')
+          path.resolve('src'),
+          path.resolve('static')
         ],
         exclude: [
           path.resolve('node_modules')
@@ -88,23 +93,45 @@ var config = {
     ]
   },
 
-  plugins: [],
+  plugins: []
 };
 
-// Clean Dist Dir
-if (!IS_PRODUCTION) {
+// dev mode
+if (IS_DEVELOPMENT) {
+  // devtool
+  config.devtool = 'source-map';
+
   config.plugins.push(
+    new HtmlWebpackPlugin({
+      inject: false,
+      template: path.resolve('./static', 'view', 'index.pug'),
+    }),
+
     new CleanWebpackPlugin(['dist'], {
       root: path.resolve('./'),
       verbose: true,
       dry: false
+    }),
+
+    new BrowserSyncPlugin({
+      server: {
+        baseDir: 'dist',
+      },
+    }, {
+      reload: true,
     })
   );
 }
 
-// Uglify Js
+// production mode
 if (IS_PRODUCTION) {
   config.plugins.push(
+    new CleanWebpackPlugin(['build'], {
+      root: path.resolve('./'),
+      verbose: true,
+      dry: false
+    }),
+
     new UglifyJsPlugin({
       beautify: false,
       comments: false,

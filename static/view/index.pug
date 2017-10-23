@@ -1,0 +1,55 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no")
+    title H5 Video Player Test
+    base(href="./")
+
+    style.
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html, body {
+        height: 100%;
+      }
+
+      #videoWrapper {
+        width: 100%;
+        height: 100%;
+      }
+
+  body
+    #videoWrapper
+
+    each _js in htmlWebpackPlugin.files.js
+      script(src=_js)
+
+    script.
+      var
+        source = {
+          url: 'https://raw.githubusercontent.com/cycjimmy/staticFiles/storage/media/Sony_test_video_vertical_720x1280.mp4',
+          type: 'mp4'
+        }
+      ;
+
+      var video = new H5VideoPlayer(source, {
+        context: '#videoWrapper',
+        control: true,
+        hookInPlay: function () {
+          console.log('hookInPlay');
+        },
+        hookInPause: function () {
+          console.log('hookInPause');
+        },
+        hookInStop: function () {
+          console.log('hookInStop');
+        }
+      });
+
+      video.load();
+
+      console.log(video);
+

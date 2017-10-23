@@ -56,4 +56,4 @@ yarn-error.log
 
 # project
 .publish
-demo/H5VideoPlayer.min.js
+dist
