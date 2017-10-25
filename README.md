@@ -16,7 +16,7 @@
 [david-url]: https://david-dm.org/cycjimmy/h5-video-player
 [david-dev-image]: https://david-dm.org/cycjimmy/h5-video-player/dev-status.svg?style=flat-square
 [david-dev-url]: https://david-dm.org/cycjimmy/h5-video-player?type=dev
-[node-image]: https://img.shields.io/badge/node.js-%3E=_4.0-green.svg?style=flat-square
+[node-image]: https://img.shields.io/badge/node.js-%3E=_6.0-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
 [download-image]: https://img.shields.io/npm/dm/h5-video-player.svg?style=flat-square
 [download-url]: https://npmjs.org/package/h5-video-player

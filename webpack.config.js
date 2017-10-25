@@ -133,24 +133,23 @@ if (IS_PRODUCTION) {
     }),
 
     new UglifyJsPlugin({
-      beautify: false,
-      comments: false,
-      compress: {
-        screw_ie8: true,
+      uglifyOptions: {
+        ie8: false,
+        ecma: 5,
+        output: {
+          comments: false,
+          beautify: false
+        },
+        compress: {
+          warnings: false,
+          drop_debugger: true,
+          drop_console: true,
+          collapse_vars: true,
+          reduce_vars: true
+        },
         warnings: false,
-        drop_debugger: true,
-        drop_console: true,
-        collapse_vars: true,
-        reduce_vars: true
-      },
-      mangle: {
-        screw_ie8: true
-      },
-      output: {
-        comments: false,
-        screw_ie8: true
-      },
-      sourceMap: true
+        sourceMap: true
+      }
     })
   );
 }
