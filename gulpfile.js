@@ -3,6 +3,7 @@ var
   , gulp = require('gulp')
   , gulpCopy = require('gulp-copy')
   , ghPages = require('gulp-gh-pages')
+  , release = require('gulp-release')
 ;
 
 
@@ -20,11 +21,15 @@ gulp.task('copy', function () {
     }));
 });
 
+// release
+release.register(gulp, {
+  packages: ['package.json']
+});
 
 // Deploy to ghPages
 gulp.task('deploy', function () {
   return gulp
-    .src(['dist/**/*','!dist/**/*.map'])
+    .src(['dist/**/*', '!dist/**/*.map'])
     .pipe(ghPages());
 });
 
