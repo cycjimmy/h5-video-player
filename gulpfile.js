@@ -20,11 +20,10 @@ gulp.task('copy', function () {
     }));
 });
 
-
 // Deploy to ghPages
 gulp.task('deploy', function () {
   return gulp
-    .src(['dist/**/*','!dist/**/*.map'])
+    .src(['dist/**/*', '!dist/**/*.map'])
     .pipe(ghPages());
 });
 
