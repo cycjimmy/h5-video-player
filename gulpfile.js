@@ -3,7 +3,6 @@ var
   , gulp = require('gulp')
   , gulpCopy = require('gulp-copy')
   , ghPages = require('gulp-gh-pages')
-  , release = require('gulp-release')
 ;
 
 
@@ -19,11 +18,6 @@ gulp.task('copy', function () {
     .pipe(gulpCopy(destination, {
       prefix: 1
     }));
-});
-
-// release
-release.register(gulp, {
-  packages: ['package.json']
 });
 
 // Deploy to ghPages
