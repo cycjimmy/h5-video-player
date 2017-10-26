@@ -75,7 +75,7 @@ $ yarn add h5-video-player
   var source = 'media/video.mp4';
   var video = new H5VideoPlayer(source, {
     context: '#videoWrapper',
-    control: true,
+    [...options]
   }).load();
 </script>
 ```
