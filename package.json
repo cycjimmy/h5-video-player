@@ -1,9 +1,8 @@
 {
   "name": "h5-video-player",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "Browser full screen H5 video player",
   "main": "build/H5VideoPlayer.js",
-  "module": "src/index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack --display-modules --display-reasons --display-error-details --watch --color",
     "build": "cross-env NODE_ENV=production webpack --progress --optimize-minimize && webpack --progress --display-modules --display-reasons --display-error-details --color",
@@ -37,7 +36,6 @@
     "cross-env": "^5.1.0",
     "css-loader": "^0.28.7",
     "gulp": "^3.9.1",
-    "gulp-copy": "^1.0.1",
     "gulp-gh-pages": "^0.5.4",
     "html-webpack-plugin": "^2.30.1",
     "jest": "^21.2.1",

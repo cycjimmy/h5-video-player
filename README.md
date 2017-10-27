@@ -22,7 +22,7 @@
 [download-url]: https://npmjs.org/package/h5-video-player
 [license-image]: https://img.shields.io/npm/l/h5-video-player.svg?style=flat-square
 
-Browser full screen H5 video player. [Demo](https://cycjimmy.github.io/h5-video-player/)
+Browser full screen H5 video player. ([Releases](https://github.com/cycjimmy/h5-video-player/releases) | [Demo](https://cycjimmy.github.io/h5-video-player/))
 
 ## Install
 ```shell
@@ -75,7 +75,7 @@ $ yarn add h5-video-player
   var source = 'media/video.mp4';
   var video = new H5VideoPlayer(source, {
     context: '#videoWrapper',
-    control: true,
+    [...options]
   }).load();
 </script>
 ```
