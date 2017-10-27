@@ -1,9 +1,8 @@
 {
   "name": "h5-video-player",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Browser full screen H5 video player",
   "main": "build/H5VideoPlayer.js",
-  "module": "src/index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack --display-modules --display-reasons --display-error-details --watch --color",
     "build": "cross-env NODE_ENV=production webpack --progress --optimize-minimize && webpack --progress --display-modules --display-reasons --display-error-details --color",
