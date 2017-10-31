@@ -1,6 +1,6 @@
 {
   "name": "h5-video-player",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "description": "Browser full screen H5 video player",
   "main": "build/H5VideoPlayer.js",
   "scripts": {

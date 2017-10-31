@@ -359,6 +359,7 @@ var H5VideoPlayer = function () {
   /**
    * @param source
    * @param context
+   * @param positioned
    * @param control
    * @param autoPlay
    * @param autoClose
@@ -377,6 +378,8 @@ var H5VideoPlayer = function () {
         context = _ref$context === undefined ? 'body' : _ref$context,
         _ref$control = _ref.control,
         control = _ref$control === undefined ? false : _ref$control,
+        _ref$positioned = _ref.positioned,
+        positioned = _ref$positioned === undefined ? false : _ref$positioned,
         _ref$autoPlay = _ref.autoPlay,
         autoPlay = _ref$autoPlay === undefined ? false : _ref$autoPlay,
         _ref$autoClose = _ref.autoClose,
@@ -418,6 +421,11 @@ var H5VideoPlayer = function () {
       hookInPause: hookInPause,
       hookInStop: hookInStop
     };
+
+    // set context position
+    if (!positioned) {
+      this.context.style.position = 'relative';
+    }
 
     this.container = null;
     this.wrapper = null;

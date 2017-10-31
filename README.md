@@ -49,6 +49,7 @@ $ yarn add h5-video-player
   * [Array]: E.g: `[{url: 'video.mp4', type:'mp4'},{},...]`
 * options
   * `context`: [Element|String] Context Wrapper Element. Default `'body'`.
+  * `positioned`: [Boolean] Whether the context element has been positioned. Default `false`.
   * `control`: [Boolean] Whether the user can control. Default `false`.
   * `autoPlay`: [Boolean] Whether to play immediately after loading. Default `false`.
   * `autoClose`: [Boolean] Whether to close immediately when the video played off. Default `true`.

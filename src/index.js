@@ -9,6 +9,7 @@ export default class H5VideoPlayer {
   /**
    * @param source
    * @param context
+   * @param positioned
    * @param control
    * @param autoPlay
    * @param autoClose
@@ -25,6 +26,7 @@ export default class H5VideoPlayer {
   constructor(source, {
     context = 'body',
     control = false,
+    positioned = false,
     autoPlay = false,
     autoClose = true,
     preload = true,
@@ -59,6 +61,11 @@ export default class H5VideoPlayer {
       hookInPause: hookInPause,
       hookInStop: hookInStop,
     };
+
+    // set context position
+    if (!positioned) {
+      this.context.style.position = 'relative';
+    }
 
     this.container = null;
     this.wrapper = null;
