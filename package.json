@@ -1,6 +1,6 @@
 {
   "name": "h5-video-player",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Browser full screen H5 video player",
   "main": "build/H5VideoPlayer.js",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cycjimmy/h5-video-player.git"
+    "url": "git+https://github.com/cycdpo/h5-video-player.git"
   },
   "keywords": [
     "h5",
@@ -20,9 +20,9 @@
   "author": "cycjimmy <cycjimmy@gmail.com> (https://github.com/cycjimmy)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cycjimmy/h5-video-player/issues"
+    "url": "https://github.com/cycdpo/h5-video-player/issues"
   },
-  "homepage": "https://github.com/cycjimmy/h5-video-player#readme",
+  "homepage": "https://github.com/cycdpo/h5-video-player#readme",
   "devDependencies": {
     "autoprefixer": "^7.1.6",
     "babel-core": "^6.26.0",
