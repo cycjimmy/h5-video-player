@@ -449,13 +449,16 @@ var H5VideoPlayer = function () {
       orientation: this.options.orientation,
       _style: __WEBPACK_IMPORTED_MODULE_2__style_scss___default.a
     });
+    this.container.appendChild(this.wrapper);
 
     // video
     this.videoWrapperForConstraintRatio = this.wrapper.querySelector('.' + __WEBPACK_IMPORTED_MODULE_2__style_scss___default.a.videoWrapperForConstraintRatio);
     this.video = this.wrapper.querySelector('.' + __WEBPACK_IMPORTED_MODULE_2__style_scss___default.a.video);
 
     // mask: used to control video
-    this.mask = this.wrapper.querySelector('.' + __WEBPACK_IMPORTED_MODULE_2__style_scss___default.a.mask);
+    this.mask = document.createElement('div');
+    this.mask.classList.add(__WEBPACK_IMPORTED_MODULE_2__style_scss___default.a.mask);
+    this.container.appendChild(this.mask);
 
     // playButton
     if (this.options.control) {
@@ -469,10 +472,8 @@ var H5VideoPlayer = function () {
         });
       }
 
-      this.wrapper.appendChild(this.playButton);
+      this.container.appendChild(this.playButton);
     }
-
-    this.container.appendChild(this.wrapper);
   };
 
   H5VideoPlayer.prototype.init = function init() {
@@ -610,24 +611,17 @@ var H5VideoPlayer = function () {
       }, 0);
     },
         _changeOrientation = function _changeOrientation() {
-      window.removeEventListener(_orientationchangeEvt, function () {
-        return _changeOrientation();
-      });
+      window.removeEventListener(_orientationchangeEvt, _changeOrientation);
 
       setTimeout(function () {
         _changeStyle();
-        window.addEventListener(_orientationchangeEvt, function () {
-          return _changeOrientation();
-        }, false);
-      }, 500);
+        window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
+      }, 400);
     };
 
     if (this.options.disableRotation) {
       _changeStyle();
-
-      window.addEventListener(_orientationchangeEvt, function () {
-        return _changeOrientation();
-      }, false);
+      window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
     } else {
       _addStyles(this.wrapper, {
         width: containerRect().width + 'px',
@@ -718,7 +712,7 @@ else
 if (typeof source === 'string' && source.constructor === String) {
 pug_html = pug_html + "\u003Csource" + (pug.attr("src", source, true, true)) + "\u003E";
 }
-pug_html = pug_html + "I'm sorry; your browser doesn't support HTML5 video.\u003C\u002Fvideo\u003E\u003C\u002Fdiv\u003E\u003Cdiv" + (pug.attr("class", pug.classes([_style.mask], [true]), false, true)) + "\u003E\u003C\u002Fdiv\u003E";}.call(this,"Array" in locals_for_with?locals_for_with.Array:typeof Array!=="undefined"?Array:undefined,"Object" in locals_for_with?locals_for_with.Object:typeof Object!=="undefined"?Object:undefined,"String" in locals_for_with?locals_for_with.String:typeof String!=="undefined"?String:undefined,"_style" in locals_for_with?locals_for_with._style:typeof _style!=="undefined"?_style:undefined,"orientation" in locals_for_with?locals_for_with.orientation:typeof orientation!=="undefined"?orientation:undefined,"source" in locals_for_with?locals_for_with.source:typeof source!=="undefined"?source:undefined));;return pug_html;};
+pug_html = pug_html + "I'm sorry; your browser doesn't support HTML5 video.\u003C\u002Fvideo\u003E\u003C\u002Fdiv\u003E";}.call(this,"Array" in locals_for_with?locals_for_with.Array:typeof Array!=="undefined"?Array:undefined,"Object" in locals_for_with?locals_for_with.Object:typeof Object!=="undefined"?Object:undefined,"String" in locals_for_with?locals_for_with.String:typeof String!=="undefined"?String:undefined,"_style" in locals_for_with?locals_for_with._style:typeof _style!=="undefined"?_style:undefined,"orientation" in locals_for_with?locals_for_with.orientation:typeof orientation!=="undefined"?orientation:undefined,"source" in locals_for_with?locals_for_with.source:typeof source!=="undefined"?source:undefined));;return pug_html;};
 module.exports = template;
 
 /***/ }),

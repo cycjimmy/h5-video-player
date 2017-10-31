@@ -90,13 +90,16 @@ export default class H5VideoPlayer {
       orientation: this.options.orientation,
       _style,
     });
+    this.container.appendChild(this.wrapper);
 
     // video
     this.videoWrapperForConstraintRatio = this.wrapper.querySelector('.' + _style.videoWrapperForConstraintRatio);
     this.video = this.wrapper.querySelector('.' + _style.video);
 
     // mask: used to control video
-    this.mask = this.wrapper.querySelector('.' + _style.mask);
+    this.mask = document.createElement('div');
+    this.mask.classList.add(_style.mask);
+    this.container.appendChild(this.mask);
 
     // playButton
     if (this.options.control) {
@@ -110,10 +113,8 @@ export default class H5VideoPlayer {
         });
       }
 
-      this.wrapper.appendChild(this.playButton);
+      this.container.appendChild(this.playButton);
     }
-
-    this.container.appendChild(this.wrapper);
   };
 
   init() {
@@ -251,19 +252,18 @@ export default class H5VideoPlayer {
       }
 
       , _changeOrientation = () => {
-        window.removeEventListener(_orientationchangeEvt, () => _changeOrientation());
+        window.removeEventListener(_orientationchangeEvt, _changeOrientation);
 
         setTimeout(() => {
           _changeStyle();
-          window.addEventListener(_orientationchangeEvt, () => _changeOrientation(), false);
-        }, 500);
+          window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
+        }, 400);
       }
     ;
 
     if (this.options.disableRotation) {
       _changeStyle();
-
-      window.addEventListener(_orientationchangeEvt, () => _changeOrientation(), false);
+      window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
 
     } else {
       _addStyles(this.wrapper, {
