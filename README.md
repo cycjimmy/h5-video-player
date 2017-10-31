@@ -1,4 +1,4 @@
-# h5-video-player
+# H5 Video Player
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
@@ -10,19 +10,19 @@
 
 [npm-image]: https://img.shields.io/npm/v/h5-video-player.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/h5-video-player
-[travis-image]: https://img.shields.io/travis/cycjimmy/h5-video-player.svg?style=flat-square
-[travis-url]: https://travis-ci.org/cycjimmy/h5-video-player
-[david-image]: https://img.shields.io/david/cycjimmy/h5-video-player.svg?style=flat-square
-[david-url]: https://david-dm.org/cycjimmy/h5-video-player
-[david-dev-image]: https://david-dm.org/cycjimmy/h5-video-player/dev-status.svg?style=flat-square
-[david-dev-url]: https://david-dm.org/cycjimmy/h5-video-player?type=dev
+[travis-image]: https://img.shields.io/travis/cycdpo/h5-video-player.svg?style=flat-square
+[travis-url]: https://travis-ci.org/cycdpo/h5-video-player
+[david-image]: https://img.shields.io/david/cycdpo/h5-video-player.svg?style=flat-square
+[david-url]: https://david-dm.org/cycdpo/h5-video-player
+[david-dev-image]: https://david-dm.org/cycdpo/h5-video-player/dev-status.svg?style=flat-square
+[david-dev-url]: https://david-dm.org/cycdpo/h5-video-player?type=dev
 [node-image]: https://img.shields.io/badge/node.js-%3E=_6.0-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
 [download-image]: https://img.shields.io/npm/dm/h5-video-player.svg?style=flat-square
 [download-url]: https://npmjs.org/package/h5-video-player
 [license-image]: https://img.shields.io/npm/l/h5-video-player.svg?style=flat-square
 
-Browser full screen H5 video player. ([Releases](https://github.com/cycjimmy/h5-video-player/releases) | [Demo](https://cycjimmy.github.io/h5-video-player/))
+Browser full screen H5 video player. ([Releases](https://github.com/cycdpo/h5-video-player/releases) | [Demo](https://cycdpo.github.io/h5-video-player/))
 
 ## Install
 ```shell
