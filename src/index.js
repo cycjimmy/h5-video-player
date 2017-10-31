@@ -9,6 +9,7 @@ export default class H5VideoPlayer {
   /**
    * @param source
    * @param context
+   * @param positioned
    * @param control
    * @param autoPlay
    * @param autoClose
@@ -25,6 +26,7 @@ export default class H5VideoPlayer {
   constructor(source, {
     context = 'body',
     control = false,
+    positioned = false,
     autoPlay = false,
     autoClose = true,
     preload = true,
@@ -60,6 +62,11 @@ export default class H5VideoPlayer {
       hookInStop: hookInStop,
     };
 
+    // set context position
+    if (!positioned) {
+      this.context.style.position = 'relative';
+    }
+
     this.container = null;
     this.wrapper = null;
     this.video = null;
@@ -90,13 +97,16 @@ export default class H5VideoPlayer {
       orientation: this.options.orientation,
       _style,
     });
+    this.container.appendChild(this.wrapper);
 
     // video
     this.videoWrapperForConstraintRatio = this.wrapper.querySelector('.' + _style.videoWrapperForConstraintRatio);
     this.video = this.wrapper.querySelector('.' + _style.video);
 
     // mask: used to control video
-    this.mask = this.wrapper.querySelector('.' + _style.mask);
+    this.mask = document.createElement('div');
+    this.mask.classList.add(_style.mask);
+    this.container.appendChild(this.mask);
 
     // playButton
     if (this.options.control) {
@@ -110,10 +120,8 @@ export default class H5VideoPlayer {
         });
       }
 
-      this.wrapper.appendChild(this.playButton);
+      this.container.appendChild(this.playButton);
     }
-
-    this.container.appendChild(this.wrapper);
   };
 
   init() {
@@ -251,19 +259,18 @@ export default class H5VideoPlayer {
       }
 
       , _changeOrientation = () => {
-        window.removeEventListener(_orientationchangeEvt, () => _changeOrientation());
+        window.removeEventListener(_orientationchangeEvt, _changeOrientation);
 
         setTimeout(() => {
           _changeStyle();
-          window.addEventListener(_orientationchangeEvt, () => _changeOrientation(), false);
-        }, 500);
+          window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
+        }, 400);
       }
     ;
 
     if (this.options.disableRotation) {
       _changeStyle();
-
-      window.addEventListener(_orientationchangeEvt, () => _changeOrientation(), false);
+      window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
 
     } else {
       _addStyles(this.wrapper, {
