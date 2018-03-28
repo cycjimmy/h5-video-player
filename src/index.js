@@ -5,6 +5,9 @@ import wrapperTemplate from './wrapper.pug';
 // style
 import _style from './style.scss';
 
+// lib
+import isString from 'awesome-js-funcs/judgeBasic/isString';
+
 export default class H5VideoPlayer {
   /**
    * @param source
@@ -287,10 +290,6 @@ let
     for (let name in styles) {
       element.style[name] = styles[name];
     }
-  }
-
-  , isString = (str) => {
-    return (typeof str === 'string') && str.constructor === String;
   }
 
   , _orientationchangeEvt = "onorientationchange" in window
