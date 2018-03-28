@@ -6,6 +6,7 @@
 [![devDependencies Status][david-dev-image]][david-dev-url]
 [![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
+[![jsdelivr][jsdelivr-image]][jsdelivr-url]
 [![npm license][license-image]][download-url]
 
 [npm-image]: https://img.shields.io/npm/v/h5-video-player.svg?style=flat-square
@@ -20,6 +21,8 @@
 [node-url]: http://nodejs.org/download/
 [download-image]: https://img.shields.io/npm/dm/h5-video-player.svg?style=flat-square
 [download-url]: https://npmjs.org/package/h5-video-player
+[jsdelivr-image]: https://data.jsdelivr.com/v1/package/npm/h5-video-player/badge
+[jsdelivr-url]: https://www.jsdelivr.com/package/npm/h5-video-player
 [license-image]: https://img.shields.io/npm/l/h5-video-player.svg?style=flat-square
 
 Browser full screen H5 video player. ([Releases](https://github.com/cycdpo/h5-video-player/releases) | [Demo](https://cycdpo.github.io/h5-video-player/))
@@ -80,3 +83,10 @@ $ yarn add h5-video-player
   }).load();
 </script>
 ```
+
+## CDN
+To use via a CDN include this in your html:
+```text
+<script src="https://cdn.jsdelivr.net/npm/h5-video-player@1.0.0/build/H5VideoPlayer.min.js"></script>
+```
+
