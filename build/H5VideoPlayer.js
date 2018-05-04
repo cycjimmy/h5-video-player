@@ -7,7 +7,7 @@
 		exports["H5VideoPlayer"] = factory();
 	else
 		root["H5VideoPlayer"] = factory();
-})(typeof self !== 'undefined' ? self : this, function() {
+})(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -54,6 +54,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 		}
 /******/ 	};
 /******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -69,12 +74,359 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _playButton_pug__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _playButton_pug__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_playButton_pug__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wrapper_pug__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var _wrapper_pug__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wrapper_pug__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var awesome_js_funcs_judgeBasic_isString__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(10);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+// template
+
+
+
+// style
+
+
+// lib
+
+
+var H5VideoPlayer = function () {
+  /**
+   * @param source
+   * @param context
+   * @param positioned
+   * @param control
+   * @param autoPlay
+   * @param autoClose
+   * @param preload
+   * @param orientation
+   * @param aspectRatio
+   * @param disableRotation
+   * @param picMode
+   * @param fixAndroidWechatContinue
+   * @param hookInPlay
+   * @param hookInPause
+   * @param hookInStop
+   */
+  function H5VideoPlayer(source, _ref) {
+    var _ref$context = _ref.context,
+        context = _ref$context === undefined ? 'body' : _ref$context,
+        _ref$control = _ref.control,
+        control = _ref$control === undefined ? false : _ref$control,
+        _ref$positioned = _ref.positioned,
+        positioned = _ref$positioned === undefined ? false : _ref$positioned,
+        _ref$autoPlay = _ref.autoPlay,
+        autoPlay = _ref$autoPlay === undefined ? false : _ref$autoPlay,
+        _ref$autoClose = _ref.autoClose,
+        autoClose = _ref$autoClose === undefined ? true : _ref$autoClose,
+        _ref$preload = _ref.preload,
+        preload = _ref$preload === undefined ? true : _ref$preload,
+        _ref$orientation = _ref.orientation,
+        orientation = _ref$orientation === undefined ? 'portrait' : _ref$orientation,
+        _ref$aspectRatio = _ref.aspectRatio,
+        aspectRatio = _ref$aspectRatio === undefined ? 9 / 16 : _ref$aspectRatio,
+        _ref$disableRotation = _ref.disableRotation,
+        disableRotation = _ref$disableRotation === undefined ? false : _ref$disableRotation,
+        _ref$picMode = _ref.picMode,
+        picMode = _ref$picMode === undefined ? false : _ref$picMode,
+        _ref$fixAndroidWechat = _ref.fixAndroidWechatContinue,
+        fixAndroidWechatContinue = _ref$fixAndroidWechat === undefined ? false : _ref$fixAndroidWechat,
+        _ref$hookInPlay = _ref.hookInPlay,
+        hookInPlay = _ref$hookInPlay === undefined ? function () {} : _ref$hookInPlay,
+        _ref$hookInPause = _ref.hookInPause,
+        hookInPause = _ref$hookInPause === undefined ? function () {} : _ref$hookInPause,
+        _ref$hookInStop = _ref.hookInStop,
+        hookInStop = _ref$hookInStop === undefined ? function () {} : _ref$hookInStop;
+
+    _classCallCheck(this, H5VideoPlayer);
+
+    this.context = Object(awesome_js_funcs_judgeBasic_isString__WEBPACK_IMPORTED_MODULE_3__["default"])(context) ? document.querySelector(context) : context;
+    this.options = {
+      source: source,
+      control: control,
+      autoPlay: autoPlay,
+      autoClose: autoClose,
+      preload: preload,
+      orientation: orientation,
+      aspectRatio: aspectRatio,
+      disableRotation: disableRotation,
+      picMode: picMode,
+      fixAndroidWechatContinue: fixAndroidWechatContinue,
+      hookInPlay: hookInPlay,
+      hookInPause: hookInPause,
+      hookInStop: hookInStop
+    };
+
+    // set context position
+    if (!positioned) {
+      this.context.style.position = 'relative';
+    }
+
+    this.container = null;
+    this.wrapper = null;
+    this.video = null;
+    this.mask = null;
+    this.playButton = null;
+
+    this.initContainer();
+    this.initWrapper();
+
+    if (this.options.preload) {
+      this.init();
+    }
+  }
+
+  H5VideoPlayer.prototype.initContainer = function initContainer() {
+    // container
+    this.container = document.createElement('div');
+    this.container.classList.add(_style_scss__WEBPACK_IMPORTED_MODULE_2___default.a.container);
+  };
+
+  H5VideoPlayer.prototype.initWrapper = function initWrapper() {
+    // wrapper
+    this.wrapper = document.createElement('div');
+    this.wrapper.classList.add(_style_scss__WEBPACK_IMPORTED_MODULE_2___default.a.wrapper);
+
+    this.wrapper.innerHTML = _wrapper_pug__WEBPACK_IMPORTED_MODULE_1___default()({
+      source: this.options.source,
+      orientation: this.options.orientation,
+      _style: _style_scss__WEBPACK_IMPORTED_MODULE_2___default.a
+    });
+    this.container.appendChild(this.wrapper);
+
+    // video
+    this.videoWrapperForConstraintRatio = this.wrapper.querySelector('.' + _style_scss__WEBPACK_IMPORTED_MODULE_2___default.a.videoWrapperForConstraintRatio);
+    this.video = this.wrapper.querySelector('.' + _style_scss__WEBPACK_IMPORTED_MODULE_2___default.a.video);
+
+    // mask: used to control video
+    this.mask = document.createElement('div');
+    this.mask.classList.add(_style_scss__WEBPACK_IMPORTED_MODULE_2___default.a.mask);
+    this.container.appendChild(this.mask);
+
+    // playButton
+    if (this.options.control) {
+      this.playButton = document.createElement('div');
+      this.playButton.classList.add(_style_scss__WEBPACK_IMPORTED_MODULE_2___default.a.playButtonWrapper);
+
+      // picMode
+      if (!this.options.picMode) {
+        this.playButton.innerHTML = _playButton_pug__WEBPACK_IMPORTED_MODULE_0___default()({
+          _style: _style_scss__WEBPACK_IMPORTED_MODULE_2___default.a
+        });
+      }
+
+      this.container.appendChild(this.playButton);
+    }
+  };
+
+  H5VideoPlayer.prototype.init = function init() {
+    this.context.appendChild(this.container);
+  };
+
+  H5VideoPlayer.prototype.load = function load() {
+    if (!this.context.contains(this.container)) {
+      this.init();
+    }
+
+    this.container.classList.add(_style_scss__WEBPACK_IMPORTED_MODULE_2___default.a.show);
+    this._assignWrapperStyle();
+
+    this.eventBind();
+
+    if (this.options.autoPlay) {
+      this.play();
+    }
+
+    return this;
+  };
+
+  H5VideoPlayer.prototype.eventBind = function eventBind() {
+    var _this = this;
+
+    if (this.options.control) {
+      this.mask.addEventListener('click', function () {
+        if (_this._isPlaying()) {
+          _this.pause();
+        } else {
+          _this.play();
+        }
+      });
+
+      this.playButton.addEventListener('click', function () {
+        _this.play();
+      });
+    } else if (this.options.fixAndroidWechatContinue) {
+      this.video.addEventListener('click', function () {
+        if (!_this._isPlaying()) {
+          _this.play();
+        }
+      });
+    }
+
+    this.video.addEventListener('ended', function () {
+      console.log('ended');
+      _this._showPlayBtn();
+      if (_this.options.autoClose) {
+        _this._remove();
+      }
+      _this.options.hookInStop();
+    });
+  };
+
+  H5VideoPlayer.prototype.play = function play() {
+    this.video.play();
+    this._hiddenPlayBtn();
+    this.options.hookInPlay();
+  };
+
+  H5VideoPlayer.prototype.pause = function pause() {
+    this.video.pause();
+    this._showPlayBtn();
+    this.options.hookInPause();
+  };
+
+  H5VideoPlayer.prototype._showPlayBtn = function _showPlayBtn() {
+    if (this.playButton) {
+      this.playButton.style.display = 'block';
+    }
+  };
+
+  H5VideoPlayer.prototype._hiddenPlayBtn = function _hiddenPlayBtn() {
+    if (this.playButton) {
+      this.playButton.style.display = 'none';
+    }
+  };
+
+  H5VideoPlayer.prototype._isPlaying = function _isPlaying() {
+    return this.video.currentTime > 0 && !this.video.paused && !this.video.ended && this.video.readyState > 2;
+  };
+
+  H5VideoPlayer.prototype._remove = function _remove() {
+    this.context.removeChild(this.container);
+  };
+
+  H5VideoPlayer.prototype._assignWrapperStyle = function _assignWrapperStyle() {
+    var _this2 = this;
+
+    var containerRect = function containerRect() {
+      return _this2.container.getBoundingClientRect();
+    },
+        _changeStyle = function _changeStyle() {
+      var containerRectWidth = containerRect().width,
+          containerRectHeight = containerRect().height;
+
+      if (_judgePhoneOrientation() === _this2.options.orientation) {
+        _addStyles(_this2.wrapper, {
+          width: containerRectWidth + 'px',
+          height: containerRectHeight + 'px',
+          transform: ''
+        });
+      } else {
+        // Adjust the video orientation
+        _addStyles(_this2.wrapper, {
+          width: containerRectHeight + 'px',
+          height: containerRectWidth + 'px',
+          transform: 'rotate(-90deg)'
+        });
+      }
+
+      // set videoWrapperForConstraintRatio width&height
+      setTimeout(function () {
+        var wrapperWidth = Number.parseInt(_this2.wrapper.style.width),
+            wrapperHeight = Number.parseInt(_this2.wrapper.style.height),
+            preComputedHeight = wrapperWidth / _this2.options.aspectRatio;
+
+        console.log(wrapperWidth);
+
+        if (preComputedHeight >= wrapperHeight) {
+          // based on wrapperWidth
+          _addStyles(_this2.videoWrapperForConstraintRatio, {
+            width: wrapperWidth + 'px',
+            height: preComputedHeight + 'px'
+          });
+        } else {
+          // based on wrapperHeight
+          _addStyles(_this2.videoWrapperForConstraintRatio, {
+            width: wrapperHeight * _this2.options.aspectRatio + 'px',
+            height: wrapperHeight + 'px'
+          });
+        }
+      }, 0);
+    },
+        _changeOrientation = function _changeOrientation() {
+      window.removeEventListener(_orientationchangeEvt, _changeOrientation);
+
+      setTimeout(function () {
+        _changeStyle();
+        window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
+      }, 400);
+    };
+
+    if (this.options.disableRotation) {
+      _changeStyle();
+      window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
+    } else {
+      _addStyles(this.wrapper, {
+        width: containerRect().width + 'px',
+        height: containerRect().height + 'px'
+      });
+    }
+  };
+
+  return H5VideoPlayer;
+}();
+
+// private
+
+
+/* harmony default export */ __webpack_exports__["default"] = (H5VideoPlayer);
+var _addStyles = function _addStyles(element, styles) {
+  for (var name in styles) {
+    element.style[name] = styles[name];
+  }
+},
+    _orientationchangeEvt = "onorientationchange" in window ? "orientationchange" : "resize",
+    _judgePhoneOrientation = function _judgePhoneOrientation() {
+  var clientWidth = document.documentElement.clientWidth,
+      clientHeight = document.documentElement.clientHeight,
+      result = '';
+
+  if (clientWidth > clientHeight) {
+    result = 'landscape';
+  } else {
+    result = 'portrait';
+  }
+
+  console.log('_judgePhoneOrientation: ' + result);
+
+  return result;
+};
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var pug = __webpack_require__(2);
+
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (_style) {pug_html = pug_html + "\u003Cdiv" + (pug.attr("class", pug.classes([_style.playButton], [true]), false, true)) + "\u003E\u003Csvg" + (pug.attr("class", pug.classes([_style.playButtonSvg], [true]), false, true)+" viewBox=\"0 0 64 64\"") + "\u003E\u003Cpath d=\"M26,45.5L44,32L26,18.6v27V45.5L26,45.5z M32,2C15.4,2,2,15.5,2,32c0,16.6,13.4,30,30,30c16.6,0,30-13.4,30-30 C62,15.4,48.5,2,32,2L32,2z M32,56c-9.7,0-18.5-5.9-22.2-14.8C6.1,32.2,8.1,21.9,15,15c6.9-6.9,17.2-8.9,26.2-5.2 C50.1,13.5,56,22.3,56,32C56,45.3,45.2,56,32,56L32,56z\"\u003E\u003C\u002Fpath\u003E\u003C\u002Fsvg\u003E\u003C\u002Fdiv\u003E";}.call(this,"_style" in locals_for_with?locals_for_with._style:typeof _style!=="undefined"?_style:undefined));;return pug_html;};
+module.exports = template;
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -334,352 +686,6 @@ function pug_rethrow(err, filename, lineno, str){
 
 
 /***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__playButton_pug__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__playButton_pug___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__playButton_pug__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wrapper_pug__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wrapper_pug___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__wrapper_pug__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__style_scss__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__style_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_awesome_js_funcs_judgeBasic_isString__ = __webpack_require__(10);
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-// template
-
-
-
-// style
-
-
-// lib
-
-
-var H5VideoPlayer = function () {
-  /**
-   * @param source
-   * @param context
-   * @param positioned
-   * @param control
-   * @param autoPlay
-   * @param autoClose
-   * @param preload
-   * @param orientation
-   * @param aspectRatio
-   * @param disableRotation
-   * @param picMode
-   * @param fixAndroidWechatContinue
-   * @param hookInPlay
-   * @param hookInPause
-   * @param hookInStop
-   */
-  function H5VideoPlayer(source, _ref) {
-    var _ref$context = _ref.context,
-        context = _ref$context === undefined ? 'body' : _ref$context,
-        _ref$control = _ref.control,
-        control = _ref$control === undefined ? false : _ref$control,
-        _ref$positioned = _ref.positioned,
-        positioned = _ref$positioned === undefined ? false : _ref$positioned,
-        _ref$autoPlay = _ref.autoPlay,
-        autoPlay = _ref$autoPlay === undefined ? false : _ref$autoPlay,
-        _ref$autoClose = _ref.autoClose,
-        autoClose = _ref$autoClose === undefined ? true : _ref$autoClose,
-        _ref$preload = _ref.preload,
-        preload = _ref$preload === undefined ? true : _ref$preload,
-        _ref$orientation = _ref.orientation,
-        orientation = _ref$orientation === undefined ? 'portrait' : _ref$orientation,
-        _ref$aspectRatio = _ref.aspectRatio,
-        aspectRatio = _ref$aspectRatio === undefined ? 9 / 16 : _ref$aspectRatio,
-        _ref$disableRotation = _ref.disableRotation,
-        disableRotation = _ref$disableRotation === undefined ? false : _ref$disableRotation,
-        _ref$picMode = _ref.picMode,
-        picMode = _ref$picMode === undefined ? false : _ref$picMode,
-        _ref$fixAndroidWechat = _ref.fixAndroidWechatContinue,
-        fixAndroidWechatContinue = _ref$fixAndroidWechat === undefined ? false : _ref$fixAndroidWechat,
-        _ref$hookInPlay = _ref.hookInPlay,
-        hookInPlay = _ref$hookInPlay === undefined ? function () {} : _ref$hookInPlay,
-        _ref$hookInPause = _ref.hookInPause,
-        hookInPause = _ref$hookInPause === undefined ? function () {} : _ref$hookInPause,
-        _ref$hookInStop = _ref.hookInStop,
-        hookInStop = _ref$hookInStop === undefined ? function () {} : _ref$hookInStop;
-
-    _classCallCheck(this, H5VideoPlayer);
-
-    this.context = Object(__WEBPACK_IMPORTED_MODULE_3_awesome_js_funcs_judgeBasic_isString__["a" /* default */])(context) ? document.querySelector(context) : context;
-    this.options = {
-      source: source,
-      control: control,
-      autoPlay: autoPlay,
-      autoClose: autoClose,
-      preload: preload,
-      orientation: orientation,
-      aspectRatio: aspectRatio,
-      disableRotation: disableRotation,
-      picMode: picMode,
-      fixAndroidWechatContinue: fixAndroidWechatContinue,
-      hookInPlay: hookInPlay,
-      hookInPause: hookInPause,
-      hookInStop: hookInStop
-    };
-
-    // set context position
-    if (!positioned) {
-      this.context.style.position = 'relative';
-    }
-
-    this.container = null;
-    this.wrapper = null;
-    this.video = null;
-    this.mask = null;
-    this.playButton = null;
-
-    this.initContainer();
-    this.initWrapper();
-
-    if (this.options.preload) {
-      this.init();
-    }
-  }
-
-  H5VideoPlayer.prototype.initContainer = function initContainer() {
-    // container
-    this.container = document.createElement('div');
-    this.container.classList.add(__WEBPACK_IMPORTED_MODULE_2__style_scss___default.a.container);
-  };
-
-  H5VideoPlayer.prototype.initWrapper = function initWrapper() {
-    // wrapper
-    this.wrapper = document.createElement('div');
-    this.wrapper.classList.add(__WEBPACK_IMPORTED_MODULE_2__style_scss___default.a.wrapper);
-
-    this.wrapper.innerHTML = __WEBPACK_IMPORTED_MODULE_1__wrapper_pug___default()({
-      source: this.options.source,
-      orientation: this.options.orientation,
-      _style: __WEBPACK_IMPORTED_MODULE_2__style_scss___default.a
-    });
-    this.container.appendChild(this.wrapper);
-
-    // video
-    this.videoWrapperForConstraintRatio = this.wrapper.querySelector('.' + __WEBPACK_IMPORTED_MODULE_2__style_scss___default.a.videoWrapperForConstraintRatio);
-    this.video = this.wrapper.querySelector('.' + __WEBPACK_IMPORTED_MODULE_2__style_scss___default.a.video);
-
-    // mask: used to control video
-    this.mask = document.createElement('div');
-    this.mask.classList.add(__WEBPACK_IMPORTED_MODULE_2__style_scss___default.a.mask);
-    this.container.appendChild(this.mask);
-
-    // playButton
-    if (this.options.control) {
-      this.playButton = document.createElement('div');
-      this.playButton.classList.add(__WEBPACK_IMPORTED_MODULE_2__style_scss___default.a.playButtonWrapper);
-
-      // picMode
-      if (!this.options.picMode) {
-        this.playButton.innerHTML = __WEBPACK_IMPORTED_MODULE_0__playButton_pug___default()({
-          _style: __WEBPACK_IMPORTED_MODULE_2__style_scss___default.a
-        });
-      }
-
-      this.container.appendChild(this.playButton);
-    }
-  };
-
-  H5VideoPlayer.prototype.init = function init() {
-    this.context.appendChild(this.container);
-  };
-
-  H5VideoPlayer.prototype.load = function load() {
-    if (!this.context.contains(this.container)) {
-      this.init();
-    }
-
-    this.container.classList.add(__WEBPACK_IMPORTED_MODULE_2__style_scss___default.a.show);
-    this._assignWrapperStyle();
-
-    this.eventBind();
-
-    if (this.options.autoPlay) {
-      this.play();
-    }
-
-    return this;
-  };
-
-  H5VideoPlayer.prototype.eventBind = function eventBind() {
-    var _this = this;
-
-    if (this.options.control) {
-      this.mask.addEventListener('click', function () {
-        if (_this._isPlaying()) {
-          _this.pause();
-        } else {
-          _this.play();
-        }
-      });
-
-      this.playButton.addEventListener('click', function () {
-        _this.play();
-      });
-    } else if (this.options.fixAndroidWechatContinue) {
-      this.video.addEventListener('click', function () {
-        if (!_this._isPlaying()) {
-          _this.play();
-        }
-      });
-    }
-
-    this.video.addEventListener('ended', function () {
-      console.log('ended');
-      _this._showPlayBtn();
-      if (_this.options.autoClose) {
-        _this._remove();
-      }
-      _this.options.hookInStop();
-    });
-  };
-
-  H5VideoPlayer.prototype.play = function play() {
-    this.video.play();
-    this._hiddenPlayBtn();
-    this.options.hookInPlay();
-  };
-
-  H5VideoPlayer.prototype.pause = function pause() {
-    this.video.pause();
-    this._showPlayBtn();
-    this.options.hookInPause();
-  };
-
-  H5VideoPlayer.prototype._showPlayBtn = function _showPlayBtn() {
-    if (this.playButton) {
-      this.playButton.style.display = 'block';
-    }
-  };
-
-  H5VideoPlayer.prototype._hiddenPlayBtn = function _hiddenPlayBtn() {
-    if (this.playButton) {
-      this.playButton.style.display = 'none';
-    }
-  };
-
-  H5VideoPlayer.prototype._isPlaying = function _isPlaying() {
-    return this.video.currentTime > 0 && !this.video.paused && !this.video.ended && this.video.readyState > 2;
-  };
-
-  H5VideoPlayer.prototype._remove = function _remove() {
-    this.context.removeChild(this.container);
-  };
-
-  H5VideoPlayer.prototype._assignWrapperStyle = function _assignWrapperStyle() {
-    var _this2 = this;
-
-    var containerRect = function containerRect() {
-      return _this2.container.getBoundingClientRect();
-    },
-        _changeStyle = function _changeStyle() {
-      var containerRectWidth = containerRect().width,
-          containerRectHeight = containerRect().height;
-
-      if (_judgePhoneOrientation() === _this2.options.orientation) {
-        _addStyles(_this2.wrapper, {
-          width: containerRectWidth + 'px',
-          height: containerRectHeight + 'px',
-          transform: ''
-        });
-      } else {
-        // Adjust the video orientation
-        _addStyles(_this2.wrapper, {
-          width: containerRectHeight + 'px',
-          height: containerRectWidth + 'px',
-          transform: 'rotate(-90deg)'
-        });
-      }
-
-      // set videoWrapperForConstraintRatio width&height
-      setTimeout(function () {
-        var wrapperWidth = Number.parseInt(_this2.wrapper.style.width),
-            wrapperHeight = Number.parseInt(_this2.wrapper.style.height),
-            preComputedHeight = wrapperWidth / _this2.options.aspectRatio;
-
-        console.log(wrapperWidth);
-
-        if (preComputedHeight >= wrapperHeight) {
-          // based on wrapperWidth
-          _addStyles(_this2.videoWrapperForConstraintRatio, {
-            width: wrapperWidth + 'px',
-            height: preComputedHeight + 'px'
-          });
-        } else {
-          // based on wrapperHeight
-          _addStyles(_this2.videoWrapperForConstraintRatio, {
-            width: wrapperHeight * _this2.options.aspectRatio + 'px',
-            height: wrapperHeight + 'px'
-          });
-        }
-      }, 0);
-    },
-        _changeOrientation = function _changeOrientation() {
-      window.removeEventListener(_orientationchangeEvt, _changeOrientation);
-
-      setTimeout(function () {
-        _changeStyle();
-        window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
-      }, 400);
-    };
-
-    if (this.options.disableRotation) {
-      _changeStyle();
-      window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
-    } else {
-      _addStyles(this.wrapper, {
-        width: containerRect().width + 'px',
-        height: containerRect().height + 'px'
-      });
-    }
-  };
-
-  return H5VideoPlayer;
-}();
-
-// private
-
-
-/* harmony default export */ __webpack_exports__["default"] = (H5VideoPlayer);
-var _addStyles = function _addStyles(element, styles) {
-  for (var name in styles) {
-    element.style[name] = styles[name];
-  }
-},
-    _orientationchangeEvt = "onorientationchange" in window ? "orientationchange" : "resize",
-    _judgePhoneOrientation = function _judgePhoneOrientation() {
-  var clientWidth = document.documentElement.clientWidth,
-      clientHeight = document.documentElement.clientHeight,
-      result = '';
-
-  if (clientWidth > clientHeight) {
-    result = 'landscape';
-  } else {
-    result = 'portrait';
-  }
-
-  console.log('_judgePhoneOrientation: ' + result);
-
-  return result;
-};
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var pug = __webpack_require__(0);
-
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (_style) {pug_html = pug_html + "\u003Cdiv" + (pug.attr("class", pug.classes([_style.playButton], [true]), false, true)) + "\u003E\u003Csvg" + (pug.attr("class", pug.classes([_style.playButtonSvg], [true]), false, true)+" viewBox=\"0 0 64 64\"") + "\u003E\u003Cpath d=\"M26,45.5L44,32L26,18.6v27V45.5L26,45.5z M32,2C15.4,2,2,15.5,2,32c0,16.6,13.4,30,30,30c16.6,0,30-13.4,30-30 C62,15.4,48.5,2,32,2L32,2z M32,56c-9.7,0-18.5-5.9-22.2-14.8C6.1,32.2,8.1,21.9,15,15c6.9-6.9,17.2-8.9,26.2-5.2 C50.1,13.5,56,22.3,56,32C56,45.3,45.2,56,32,56L32,56z\"\u003E\u003C\u002Fpath\u003E\u003C\u002Fsvg\u003E\u003C\u002Fdiv\u003E";}.call(this,"_style" in locals_for_with?locals_for_with._style:typeof _style!=="undefined"?_style:undefined));;return pug_html;};
-module.exports = template;
-
-/***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
@@ -689,7 +695,7 @@ module.exports = template;
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var pug = __webpack_require__(0);
+var pug = __webpack_require__(2);
 
 function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (Array, Object, String, _style, orientation, source) {pug_html = pug_html + "\u003Cdiv" + (pug.attr("class", pug.classes([_style.videoWrapperForConstraintRatio], [true]), false, true)) + "\u003E\u003Cvideo" + (pug.attr("class", pug.classes([_style.video], [true]), false, true)+" width=\"100%\" preload x-webkit-airplay=\"allow\" webkit-playsinline=\"true\" playsinline x5-video-player-type=\"h5\" x5-video-player-fullscreen=\"true\""+pug.attr("x5-video-orientation", orientation, true, true)) + "\u003E";
 if (source instanceof Array) {
@@ -746,32 +752,7 @@ var update = __webpack_require__(8)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
-if(false) {
-	module.hot.accept("!!../node_modules/css-loader/index.js??ref--1-1!../node_modules/sass-loader/lib/loader.js??ref--1-2!./style.scss", function() {
-		var newContent = require("!!../node_modules/css-loader/index.js??ref--1-1!../node_modules/sass-loader/lib/loader.js??ref--1-2!./style.scss");
-
-		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-
-		var locals = (function(a, b) {
-			var key, idx = 0;
-
-			for(key in a) {
-				if(!b || a[key] !== b[key]) return false;
-				idx++;
-			}
-
-			for(key in b) idx--;
-
-			return idx === 0;
-		}(content.locals, newContent.locals));
-
-		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
-
-		update(newContent);
-	});
-
-	module.hot.dispose(function() { update(); });
-}
+if(false) {}
 
 /***/ }),
 /* 6 */
@@ -1086,7 +1067,9 @@ function removeStyleElement (style) {
 function createStyleElement (options) {
 	var style = document.createElement("style");
 
-	options.attrs.type = "text/css";
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
 
 	addAttrs(style, options.attrs);
 	insertStyleElement(options, style);
@@ -1097,7 +1080,9 @@ function createStyleElement (options) {
 function createLinkElement (options) {
 	var link = document.createElement("link");
 
-	options.attrs.type = "text/css";
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
 	options.attrs.rel = "stylesheet";
 
 	addAttrs(link, options.attrs);
@@ -1361,12 +1346,13 @@ module.exports = function (css) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
 /**
  * 判断是否字符串
  * @param str
  * @returns {boolean}
  */
-/* harmony default export */ __webpack_exports__["a"] = (function (str) {
+/* harmony default export */ __webpack_exports__["default"] = (function (str) {
   return typeof str === 'string' && str.constructor === String;
 });
 
