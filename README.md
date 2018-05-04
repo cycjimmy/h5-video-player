@@ -87,6 +87,6 @@ $ yarn add h5-video-player
 ## CDN
 To use via a CDN include this in your html:
 ```text
-<script src="https://cdn.jsdelivr.net/npm/h5-video-player@1.0.0/build/H5VideoPlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/h5-video-player@1/build/H5VideoPlayer.min.js"></script>
 ```
 
