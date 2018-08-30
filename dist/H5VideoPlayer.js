@@ -1,3 +1,8 @@
+/*!
+ * h5-video-player v1.1.1
+ * Homepage: https://github.com/cycdpo/h5-video-player#readme
+ * Released under the MIT License.
+ */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -46,17 +51,32 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -101,7 +121,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js??ref--5-1!./node_modules/sass-loader/lib/loader.js??ref--5-2!./src/style.scss":
+/***/ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/lib/loader.js?!./src/style.scss":
 /*!***************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--5-1!./node_modules/sass-loader/lib/loader.js??ref--5-2!./src/style.scss ***!
   \***************************************************************************************************************/
@@ -514,14 +534,17 @@ var isOldIE = memoize(function () {
 	return window && document && document.all && !window.atob;
 });
 
-var getTarget = function (target) {
+var getTarget = function (target, parent) {
+  if (parent){
+    return parent.querySelector(target);
+  }
   return document.querySelector(target);
 };
 
 var getElement = (function (fn) {
 	var memo = {};
 
-	return function(target) {
+	return function(target, parent) {
                 // If passing function in options, then use it for resolve "head" element.
                 // Useful for Shadow Root style i.e
                 // {
@@ -531,7 +554,7 @@ var getElement = (function (fn) {
                         return target();
                 }
                 if (typeof memo[target] === "undefined") {
-			var styleTarget = getTarget.call(this, target);
+			var styleTarget = getTarget.call(this, target, parent);
 			// Special case to return head of iframe instead of iframe itself
 			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
 				try {
@@ -672,7 +695,7 @@ function insertStyleElement (options, style) {
 	} else if (options.insertAt === "bottom") {
 		target.appendChild(style);
 	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
-		var nextSibling = getElement(options.insertInto + " " + options.insertAt.before);
+		var nextSibling = getElement(options.insertAt.before, target);
 		target.insertBefore(style, nextSibling);
 	} else {
 		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
@@ -694,6 +717,13 @@ function createStyleElement (options) {
 
 	if(options.attrs.type === undefined) {
 		options.attrs.type = "text/css";
+	}
+
+	if(options.attrs.nonce === undefined) {
+		var nonce = getNonce();
+		if (nonce) {
+			options.attrs.nonce = nonce;
+		}
 	}
 
 	addAttrs(style, options.attrs);
@@ -720,6 +750,12 @@ function addAttrs (el, attrs) {
 	Object.keys(attrs).forEach(function (key) {
 		el.setAttribute(key, attrs[key]);
 	});
+}
+
+function getNonce() {
+	if (false) {}
+
+	return __webpack_require__.nc;
 }
 
 function addStyle (obj, options) {
@@ -982,6 +1018,7 @@ module.exports = function (css) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return H5VideoPlayer; });
 /* harmony import */ var _playButton_pug__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./playButton.pug */ "./src/playButton.pug");
 /* harmony import */ var _playButton_pug__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_playButton_pug__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wrapper_pug__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./wrapper.pug */ "./src/wrapper.pug");
@@ -989,19 +1026,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var awesome_js_funcs_judgeBasic_isString__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! awesome-js-funcs/judgeBasic/isString */ "./node_modules/awesome-js-funcs/judgeBasic/isString.js");
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 // template
 
+ // style
+
+ // lib
 
 
-// style
 
-
-// lib
-
-
-var H5VideoPlayer = function () {
+var H5VideoPlayer =
+/*#__PURE__*/
+function () {
   /**
    * @param source
    * @param context
@@ -1021,36 +1056,33 @@ var H5VideoPlayer = function () {
    */
   function H5VideoPlayer(source, _ref) {
     var _ref$context = _ref.context,
-        context = _ref$context === undefined ? 'body' : _ref$context,
+        context = _ref$context === void 0 ? 'body' : _ref$context,
         _ref$control = _ref.control,
-        control = _ref$control === undefined ? false : _ref$control,
+        control = _ref$control === void 0 ? false : _ref$control,
         _ref$positioned = _ref.positioned,
-        positioned = _ref$positioned === undefined ? false : _ref$positioned,
+        positioned = _ref$positioned === void 0 ? false : _ref$positioned,
         _ref$autoPlay = _ref.autoPlay,
-        autoPlay = _ref$autoPlay === undefined ? false : _ref$autoPlay,
+        autoPlay = _ref$autoPlay === void 0 ? false : _ref$autoPlay,
         _ref$autoClose = _ref.autoClose,
-        autoClose = _ref$autoClose === undefined ? true : _ref$autoClose,
+        autoClose = _ref$autoClose === void 0 ? true : _ref$autoClose,
         _ref$preload = _ref.preload,
-        preload = _ref$preload === undefined ? true : _ref$preload,
+        preload = _ref$preload === void 0 ? true : _ref$preload,
         _ref$orientation = _ref.orientation,
-        orientation = _ref$orientation === undefined ? 'portrait' : _ref$orientation,
+        orientation = _ref$orientation === void 0 ? 'portrait' : _ref$orientation,
         _ref$aspectRatio = _ref.aspectRatio,
-        aspectRatio = _ref$aspectRatio === undefined ? 9 / 16 : _ref$aspectRatio,
+        aspectRatio = _ref$aspectRatio === void 0 ? 9 / 16 : _ref$aspectRatio,
         _ref$disableRotation = _ref.disableRotation,
-        disableRotation = _ref$disableRotation === undefined ? false : _ref$disableRotation,
+        disableRotation = _ref$disableRotation === void 0 ? false : _ref$disableRotation,
         _ref$picMode = _ref.picMode,
-        picMode = _ref$picMode === undefined ? false : _ref$picMode,
+        picMode = _ref$picMode === void 0 ? false : _ref$picMode,
         _ref$fixAndroidWechat = _ref.fixAndroidWechatContinue,
-        fixAndroidWechatContinue = _ref$fixAndroidWechat === undefined ? false : _ref$fixAndroidWechat,
+        fixAndroidWechatContinue = _ref$fixAndroidWechat === void 0 ? false : _ref$fixAndroidWechat,
         _ref$hookInPlay = _ref.hookInPlay,
-        hookInPlay = _ref$hookInPlay === undefined ? function () {} : _ref$hookInPlay,
+        hookInPlay = _ref$hookInPlay === void 0 ? function () {} : _ref$hookInPlay,
         _ref$hookInPause = _ref.hookInPause,
-        hookInPause = _ref$hookInPause === undefined ? function () {} : _ref$hookInPause,
+        hookInPause = _ref$hookInPause === void 0 ? function () {} : _ref$hookInPause,
         _ref$hookInStop = _ref.hookInStop,
-        hookInStop = _ref$hookInStop === undefined ? function () {} : _ref$hookInStop;
-
-    _classCallCheck(this, H5VideoPlayer);
-
+        hookInStop = _ref$hookInStop === void 0 ? function () {} : _ref$hookInStop;
     this.context = Object(awesome_js_funcs_judgeBasic_isString__WEBPACK_IMPORTED_MODULE_3__["default"])(context) ? document.querySelector(context) : context;
     this.options = {
       source: source,
@@ -1066,9 +1098,8 @@ var H5VideoPlayer = function () {
       hookInPlay: hookInPlay,
       hookInPause: hookInPause,
       hookInStop: hookInStop
-    };
+    }; // set context position
 
-    // set context position
     if (!positioned) {
       this.context.style.position = 'relative';
     }
@@ -1078,7 +1109,6 @@ var H5VideoPlayer = function () {
     this.video = null;
     this.mask = null;
     this.playButton = null;
-
     this.initContainer();
     this.initWrapper();
 
@@ -1087,39 +1117,36 @@ var H5VideoPlayer = function () {
     }
   }
 
-  H5VideoPlayer.prototype.initContainer = function initContainer() {
+  var _proto = H5VideoPlayer.prototype;
+
+  _proto.initContainer = function initContainer() {
     // container
     this.container = document.createElement('div');
     this.container.classList.add(_style_scss__WEBPACK_IMPORTED_MODULE_2___default.a.container);
   };
 
-  H5VideoPlayer.prototype.initWrapper = function initWrapper() {
+  _proto.initWrapper = function initWrapper() {
     // wrapper
     this.wrapper = document.createElement('div');
     this.wrapper.classList.add(_style_scss__WEBPACK_IMPORTED_MODULE_2___default.a.wrapper);
-
     this.wrapper.innerHTML = _wrapper_pug__WEBPACK_IMPORTED_MODULE_1___default()({
       source: this.options.source,
       orientation: this.options.orientation,
       _style: _style_scss__WEBPACK_IMPORTED_MODULE_2___default.a
     });
-    this.container.appendChild(this.wrapper);
+    this.container.appendChild(this.wrapper); // video
 
-    // video
     this.videoWrapperForConstraintRatio = this.wrapper.querySelector('.' + _style_scss__WEBPACK_IMPORTED_MODULE_2___default.a.videoWrapperForConstraintRatio);
-    this.video = this.wrapper.querySelector('.' + _style_scss__WEBPACK_IMPORTED_MODULE_2___default.a.video);
+    this.video = this.wrapper.querySelector('.' + _style_scss__WEBPACK_IMPORTED_MODULE_2___default.a.video); // mask: used to control video
 
-    // mask: used to control video
     this.mask = document.createElement('div');
     this.mask.classList.add(_style_scss__WEBPACK_IMPORTED_MODULE_2___default.a.mask);
-    this.container.appendChild(this.mask);
+    this.container.appendChild(this.mask); // playButton
 
-    // playButton
     if (this.options.control) {
       this.playButton = document.createElement('div');
-      this.playButton.classList.add(_style_scss__WEBPACK_IMPORTED_MODULE_2___default.a.playButtonWrapper);
+      this.playButton.classList.add(_style_scss__WEBPACK_IMPORTED_MODULE_2___default.a.playButtonWrapper); // picMode
 
-      // picMode
       if (!this.options.picMode) {
         this.playButton.innerHTML = _playButton_pug__WEBPACK_IMPORTED_MODULE_0___default()({
           _style: _style_scss__WEBPACK_IMPORTED_MODULE_2___default.a
@@ -1130,16 +1157,17 @@ var H5VideoPlayer = function () {
     }
   };
 
-  H5VideoPlayer.prototype.init = function init() {
+  _proto.init = function init() {
     this.context.appendChild(this.container);
   };
 
-  H5VideoPlayer.prototype.load = function load() {
+  _proto.load = function load() {
     if (!this.context.contains(this.container)) {
       this.init();
     }
 
     this.container.classList.add(_style_scss__WEBPACK_IMPORTED_MODULE_2___default.a.show);
+
     this._assignWrapperStyle();
 
     this.eventBind();
@@ -1151,7 +1179,7 @@ var H5VideoPlayer = function () {
     return this;
   };
 
-  H5VideoPlayer.prototype.eventBind = function eventBind() {
+  _proto.eventBind = function eventBind() {
     var _this = this;
 
     if (this.options.control) {
@@ -1162,7 +1190,6 @@ var H5VideoPlayer = function () {
           _this.play();
         }
       });
-
       this.playButton.addEventListener('click', function () {
         _this.play();
       });
@@ -1176,47 +1203,54 @@ var H5VideoPlayer = function () {
 
     this.video.addEventListener('ended', function () {
       console.log('ended');
+
       _this._showPlayBtn();
+
       if (_this.options.autoClose) {
         _this._remove();
       }
+
       _this.options.hookInStop();
     });
   };
 
-  H5VideoPlayer.prototype.play = function play() {
+  _proto.play = function play() {
     this.video.play();
+
     this._hiddenPlayBtn();
+
     this.options.hookInPlay();
   };
 
-  H5VideoPlayer.prototype.pause = function pause() {
+  _proto.pause = function pause() {
     this.video.pause();
+
     this._showPlayBtn();
+
     this.options.hookInPause();
   };
 
-  H5VideoPlayer.prototype._showPlayBtn = function _showPlayBtn() {
+  _proto._showPlayBtn = function _showPlayBtn() {
     if (this.playButton) {
       this.playButton.style.display = 'block';
     }
   };
 
-  H5VideoPlayer.prototype._hiddenPlayBtn = function _hiddenPlayBtn() {
+  _proto._hiddenPlayBtn = function _hiddenPlayBtn() {
     if (this.playButton) {
       this.playButton.style.display = 'none';
     }
   };
 
-  H5VideoPlayer.prototype._isPlaying = function _isPlaying() {
+  _proto._isPlaying = function _isPlaying() {
     return this.video.currentTime > 0 && !this.video.paused && !this.video.ended && this.video.readyState > 2;
   };
 
-  H5VideoPlayer.prototype._remove = function _remove() {
+  _proto._remove = function _remove() {
     this.context.removeChild(this.container);
   };
 
-  H5VideoPlayer.prototype._assignWrapperStyle = function _assignWrapperStyle() {
+  _proto._assignWrapperStyle = function _assignWrapperStyle() {
     var _this2 = this;
 
     var containerRect = function containerRect() {
@@ -1239,14 +1273,13 @@ var H5VideoPlayer = function () {
           height: containerRectWidth + 'px',
           transform: 'rotate(-90deg)'
         });
-      }
+      } // set videoWrapperForConstraintRatio width&height
 
-      // set videoWrapperForConstraintRatio width&height
+
       setTimeout(function () {
         var wrapperWidth = Number.parseInt(_this2.wrapper.style.width),
             wrapperHeight = Number.parseInt(_this2.wrapper.style.height),
             preComputedHeight = wrapperWidth / _this2.options.aspectRatio;
-
         console.log(wrapperWidth);
 
         if (preComputedHeight >= wrapperHeight) {
@@ -1266,15 +1299,16 @@ var H5VideoPlayer = function () {
     },
         _changeOrientation = function _changeOrientation() {
       window.removeEventListener(_orientationchangeEvt, _changeOrientation);
-
       setTimeout(function () {
         _changeStyle();
+
         window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
       }, 400);
     };
 
     if (this.options.disableRotation) {
       _changeStyle();
+
       window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
     } else {
       _addStyles(this.wrapper, {
@@ -1285,12 +1319,11 @@ var H5VideoPlayer = function () {
   };
 
   return H5VideoPlayer;
-}();
-
-// private
+}(); // private
 
 
-/* harmony default export */ __webpack_exports__["default"] = (H5VideoPlayer);
+
+
 var _addStyles = function _addStyles(element, styles) {
   for (var name in styles) {
     element.style[name] = styles[name];
@@ -1309,7 +1342,6 @@ var _addStyles = function _addStyles(element, styles) {
   }
 
   console.log('_judgePhoneOrientation: ' + result);
-
   return result;
 };
 
@@ -1337,7 +1369,7 @@ module.exports = template;
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../node_modules/css-loader??ref--5-1!../node_modules/sass-loader/lib/loader.js??ref--5-2!./style.scss */ "./node_modules/css-loader/index.js??ref--5-1!./node_modules/sass-loader/lib/loader.js??ref--5-2!./src/style.scss");
+var content = __webpack_require__(/*! !../node_modules/css-loader??ref--5-1!../node_modules/sass-loader/lib/loader.js??ref--5-2!./style.scss */ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/lib/loader.js?!./src/style.scss");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
