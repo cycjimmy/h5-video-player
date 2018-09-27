@@ -1,5 +1,5 @@
 /*!
- * h5-video-player v1.1.1
+ * h5-video-player v1.1.2
  * Homepage: https://github.com/cycdpo/h5-video-player#readme
  * Released under the MIT License.
  */
@@ -713,7 +713,7 @@ function pug_rethrow(err, filename, lineno, str){
 
 var pug = __webpack_require__(2);
 
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (Array, Object, String, _style, orientation, source) {pug_html = pug_html + "\u003Cdiv" + (pug.attr("class", pug.classes([_style.videoWrapperForConstraintRatio], [true]), false, true)) + "\u003E\u003Cvideo" + (pug.attr("class", pug.classes([_style.video], [true]), false, true)+" width=\"100%\" preload x-webkit-airplay=\"allow\" webkit-playsinline=\"true\" playsinline x5-video-player-type=\"h5\" x5-video-player-fullscreen=\"true\""+pug.attr("x5-video-orientation", orientation, true, true)) + "\u003E";
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (Array, Object, String, _style, orientation, source) {pug_html = pug_html + "\u003Cdiv" + (pug.attr("class", pug.classes([_style.videoWrapperForConstraintRatio], [true]), false, true)) + "\u003E\u003Cvideo" + (pug.attr("class", pug.classes([_style.video], [true]), false, true)+" width=\"100%\" preload=\"auto\" x-webkit-airplay=\"allow\" webkit-playsinline=\"true\" playsinline x5-video-player-type=\"h5\" x5-video-player-fullscreen=\"true\""+pug.attr("x5-video-orientation", orientation, true, true)) + "\u003E";
 if (source instanceof Array) {
 // iterate source
 ;(function(){
