@@ -1,5 +1,9 @@
 # IDE
 .idea
+.editorconfig
+
+# doc
+.github
 
 # test
 test
@@ -11,7 +15,8 @@ yarn-error.log
 
 # project
 src
-static
 dist
-temp
+static
+*.config.js
+gulpfile.js
 

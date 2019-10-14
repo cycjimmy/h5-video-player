@@ -1,26 +1,11 @@
-%abs {
-  position: absolute;
-}
-
-%full {
-  @extend %abs;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
+@import "../../node_modules/@cycjimmy/sass-lib";
 
 %keepCenter {
-  @extend %abs;
-  left: -100%;
-  top: -100%;
-  right: -100%;
-  bottom: -100%;
-  margin: auto;
+  @include fix-center(-100%);
 }
 
 .container {
-  @extend %full;
+  @extend %fullContainer;
   z-index: 9999;
   display: none;
 
@@ -48,7 +33,7 @@
 }
 
 .video {
-  @extend %full;
+  @extend %fullContainer;
   z-index: -1;
 
   object-fit: fill;
@@ -56,12 +41,12 @@
 }
 
 .mask {
-  @extend %full;
+  @extend %fullContainer;
   z-index: 10;
 }
 
 .playButtonWrapper {
-  @extend %full;
+  @extend %fullContainer;
   z-index: 100;
   background-color: rgba(black, .1);
 }

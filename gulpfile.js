@@ -1,4 +1,4 @@
-var
+const
   gulp = require('gulp')
   , ghPages = require('gh-pages')
 ;

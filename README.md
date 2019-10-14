@@ -35,11 +35,11 @@ $ yarn add h5-video-player
   ```javascript
   import H5VideoPlayer from 'h5-video-player';
   # OR
-  let H5VideoPlayer = require('h5-video-player');
+  const H5VideoPlayer = require('h5-video-player');
   ```
 
   ```javascript
-  let videoPlayer = new H5VideoPlayer(source, [, options]);
+  const videoPlayer = new H5VideoPlayer(source, [, options]);
   videoPlayer.load();
   ```
 
@@ -49,13 +49,12 @@ $ yarn add h5-video-player
   * [Array]: E.g: `[{url: 'video.mp4', type:'mp4'},{},...]`
 * options
   * `context`: [Element|String] Context Wrapper Element. Default `'body'`.
-  * `positioned`: [Boolean] Whether the context element has been positioned. Default `false`.
   * `control`: [Boolean] Whether the user can control. Default `false`.
   * `autoPlay`: [Boolean] Whether to play immediately after loading. Default `false`.
   * `autoClose`: [Boolean] Whether to close immediately when the video played off. Default `true`.
   * `preload`: [Boolean] Whether to preload the video. Default `true`.
   * `orientation`: [String] landscape / portrait. Default `'portrait'`.
-  * `aspectRatio`: [Number] Video aspect ratio. Default `9 / 16`.
+  * `aspectRatio`: [Number] Set video aspect ratio. Default `9 / 16`(when orientation is portrait) or `16 / 9`(when orientation is landscape).
   * `disableRotation`: [Boolean] Whether to prohibit automatic rotation. Default `false`.
   * `picMode`: [Boolean] picture mode (no playButton). Default `false`.
   * `fixAndroidWechatContinue`: [Boolean] Whether compatible with Wechat(Android) play after Forced to pause. Default `false`.

@@ -19,8 +19,5 @@
   },
   "plugins": [
     "@babel/plugin-syntax-dynamic-import"
-  ],
-  "ignore": [
-    "node_modules"
   ]
 }

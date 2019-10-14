@@ -1,18 +1,17 @@
 // template
 import playButtonTemplate from './playButton.pug';
 import wrapperTemplate from './wrapper.pug';
-
 // style
-import _style from './style.scss';
-
+import _style from './style/index.scss';
 // lib
-import isString from 'awesome-js-funcs/judgeBasic/isString';
+import isString from '@cycjimmy/awesome-js-funcs/judgeBasic/isString';
+import addStyles from '@cycjimmy/awesome-js-funcs/dom/addStyles';
+import isVideoPlaying from '@cycjimmy/awesome-js-funcs/media/isVideoPlaying';
 
 export default class H5VideoPlayer {
   /**
    * @param source
    * @param context
-   * @param positioned
    * @param control
    * @param autoPlay
    * @param autoClose
@@ -29,12 +28,11 @@ export default class H5VideoPlayer {
   constructor(source, {
     context = 'body',
     control = false,
-    positioned = false,
     autoPlay = false,
     autoClose = true,
     preload = true,
     orientation = 'portrait',
-    aspectRatio = 9 / 16,
+    aspectRatio = 0,
     disableRotation = false,
     picMode = false,
     fixAndroidWechatContinue = false,
@@ -50,31 +48,36 @@ export default class H5VideoPlayer {
       ? document.querySelector(context)
       : context;
     this.options = {
-      source: source,
-      control: control,
-      autoPlay: autoPlay,
-      autoClose: autoClose,
-      preload: preload,
-      orientation: orientation,
-      aspectRatio: aspectRatio,
-      disableRotation: disableRotation,
-      picMode: picMode,
-      fixAndroidWechatContinue: fixAndroidWechatContinue,
-      hookInPlay: hookInPlay,
-      hookInPause: hookInPause,
-      hookInStop: hookInStop,
+      source,
+      control,
+      autoPlay,
+      autoClose,
+      preload,
+      orientation,
+      aspectRatio: aspectRatio || (() => orientation === 'landscape'
+        ? 16 / 9
+        : 9 / 16)(),
+      disableRotation,
+      picMode,
+      fixAndroidWechatContinue,
+      hookInPlay,
+      hookInPause,
+      hookInStop,
     };
 
     // set context position
-    if (!positioned) {
+    if (_getElementStyle(this.context, 'position') === 'static') {
       this.context.style.position = 'relative';
     }
 
-    this.container = null;
-    this.wrapper = null;
-    this.video = null;
-    this.mask = null;
-    this.playButton = null;
+    this.els = {
+      container: null,
+      wrapper: null,
+      video: null,
+      videoWrapperForConstraintRatio: null,
+      mask: null,
+      playButton: null,
+    };
 
     this.initContainer();
     this.initWrapper();
@@ -86,57 +89,57 @@ export default class H5VideoPlayer {
 
   initContainer() {
     // container
-    this.container = document.createElement('div');
-    this.container.classList.add(_style.container);
+    this.els.container = document.createElement('div');
+    this.els.container.classList.add(_style.container);
   };
 
   initWrapper() {
     // wrapper
-    this.wrapper = document.createElement('div');
-    this.wrapper.classList.add(_style.wrapper);
+    this.els.wrapper = document.createElement('div');
+    this.els.wrapper.classList.add(_style.wrapper);
 
-    this.wrapper.innerHTML = wrapperTemplate({
+    this.els.wrapper.innerHTML = wrapperTemplate({
       source: this.options.source,
       orientation: this.options.orientation,
       _style,
     });
-    this.container.appendChild(this.wrapper);
+    this.els.container.appendChild(this.els.wrapper);
 
     // video
-    this.videoWrapperForConstraintRatio = this.wrapper.querySelector('.' + _style.videoWrapperForConstraintRatio);
-    this.video = this.wrapper.querySelector('.' + _style.video);
+    this.els.videoWrapperForConstraintRatio = this.els.wrapper.querySelector('.' + _style.videoWrapperForConstraintRatio);
+    this.els.video = this.els.wrapper.querySelector('.' + _style.video);
 
     // mask: used to control video
-    this.mask = document.createElement('div');
-    this.mask.classList.add(_style.mask);
-    this.container.appendChild(this.mask);
+    this.els.mask = document.createElement('div');
+    this.els.mask.classList.add(_style.mask);
+    this.els.container.appendChild(this.els.mask);
 
     // playButton
     if (this.options.control) {
-      this.playButton = document.createElement('div');
-      this.playButton.classList.add(_style.playButtonWrapper);
+      this.els.playButton = document.createElement('div');
+      this.els.playButton.classList.add(_style.playButtonWrapper);
 
       // picMode
       if (!this.options.picMode) {
-        this.playButton.innerHTML = playButtonTemplate({
+        this.els.playButton.innerHTML = playButtonTemplate({
           _style,
         });
       }
 
-      this.container.appendChild(this.playButton);
+      this.els.container.appendChild(this.els.playButton);
     }
   };
 
   init() {
-    this.context.appendChild(this.container);
+    this.context.appendChild(this.els.container);
   };
 
   load() {
-    if (!this.context.contains(this.container)) {
+    if (!this.context.contains(this.els.container)) {
       this.init();
     }
 
-    this.container.classList.add(_style.show);
+    this.els.container.classList.add(_style.show);
     this._assignWrapperStyle();
 
     this.eventBind();
@@ -150,7 +153,7 @@ export default class H5VideoPlayer {
 
   eventBind() {
     if (this.options.control) {
-      this.mask.addEventListener('click', () => {
+      this.els.mask.addEventListener('click', () => {
         if (this._isPlaying()) {
           this.pause();
         } else {
@@ -158,18 +161,18 @@ export default class H5VideoPlayer {
         }
       });
 
-      this.playButton.addEventListener('click', () => {
+      this.els.playButton.addEventListener('click', () => {
         this.play();
       });
     } else if (this.options.fixAndroidWechatContinue) {
-      this.video.addEventListener('click', () => {
+      this.els.video.addEventListener('click', () => {
         if (!this._isPlaying()) {
           this.play();
         }
       });
     }
 
-    this.video.addEventListener('ended', () => {
+    this.els.video.addEventListener('ended', () => {
       console.log('ended');
       this._showPlayBtn();
       if (this.options.autoClose) {
@@ -180,57 +183,56 @@ export default class H5VideoPlayer {
   };
 
   play() {
-    this.video.play();
+    this.els.video.play();
     this._hiddenPlayBtn();
     this.options.hookInPlay();
   };
 
   pause() {
-    this.video.pause();
+    this.els.video.pause();
     this._showPlayBtn();
     this.options.hookInPause();
   };
 
   _showPlayBtn() {
-    if (this.playButton) {
-      this.playButton.style.display = 'block';
+    if (this.els.playButton) {
+      this.els.playButton.style.display = 'block';
     }
   };
 
   _hiddenPlayBtn() {
-    if (this.playButton) {
-      this.playButton.style.display = 'none';
+    if (this.els.playButton) {
+      this.els.playButton.style.display = 'none';
     }
   };
 
   _isPlaying() {
-    return this.video.currentTime > 0 && !this.video.paused && !this.video.ended
-      && this.video.readyState > 2;
+    return isVideoPlaying(this.els.video);
   };
 
   _remove() {
-    this.context.removeChild(this.container);
+    this.context.removeChild(this.els.container);
   };
 
   _assignWrapperStyle() {
-    let
-      containerRect = () => this.container.getBoundingClientRect()
+    const
+      containerRect = () => this.els.container.getBoundingClientRect()
 
       , _changeStyle = () => {
-        let
+        const
           containerRectWidth = containerRect().width
           , containerRectHeight = containerRect().height
         ;
 
         if (_judgePhoneOrientation() === this.options.orientation) {
-          _addStyles(this.wrapper, {
+          addStyles(this.els.wrapper, {
             width: containerRectWidth + 'px',
             height: containerRectHeight + 'px',
             transform: '',
           });
         } else {
           // Adjust the video orientation
-          _addStyles(this.wrapper, {
+          addStyles(this.els.wrapper, {
             width: containerRectHeight + 'px',
             height: containerRectWidth + 'px',
             transform: 'rotate(-90deg)',
@@ -239,21 +241,19 @@ export default class H5VideoPlayer {
 
         // set videoWrapperForConstraintRatio width&height
         setTimeout(() => {
-          let
-            wrapperWidth = Number.parseInt(this.wrapper.style.width)
-            , wrapperHeight = Number.parseInt(this.wrapper.style.height)
+          const
+            wrapperWidth = Number.parseInt(this.els.wrapper.style.width)
+            , wrapperHeight = Number.parseInt(this.els.wrapper.style.height)
             , preComputedHeight = wrapperWidth / this.options.aspectRatio
           ;
 
-          console.log(wrapperWidth);
-
           if (preComputedHeight >= wrapperHeight) { // based on wrapperWidth
-            _addStyles(this.videoWrapperForConstraintRatio, {
+            addStyles(this.els.videoWrapperForConstraintRatio, {
               width: wrapperWidth + 'px',
               height: preComputedHeight + 'px',
             });
           } else {  // based on wrapperHeight
-            _addStyles(this.videoWrapperForConstraintRatio, {
+            addStyles(this.els.videoWrapperForConstraintRatio, {
               width: wrapperHeight * this.options.aspectRatio + 'px',
               height: wrapperHeight + 'px',
             });
@@ -276,7 +276,7 @@ export default class H5VideoPlayer {
       window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
 
     } else {
-      _addStyles(this.wrapper, {
+      addStyles(this.els.wrapper, {
         width: containerRect().width + 'px',
         height: containerRect().height + 'px',
       });
@@ -285,32 +285,23 @@ export default class H5VideoPlayer {
 }
 
 // private
-let
-  _addStyles = (element, styles) => {
-    for (let name in styles) {
-      element.style[name] = styles[name];
-    }
-  }
-
-  , _orientationchangeEvt = "onorientationchange" in window
-  ? "orientationchange"
-  : "resize"
+const
+  _orientationchangeEvt = "onorientationchange" in window
+    ? "orientationchange"
+    : "resize"
 
   , _judgePhoneOrientation = () => {
-    let
+    const
       clientWidth = document.documentElement.clientWidth
       , clientHeight = document.documentElement.clientHeight
-      , result = ''
     ;
 
-    if (clientWidth > clientHeight) {
-      result = 'landscape';
-    } else {
-      result = 'portrait';
-    }
-
-    console.log('_judgePhoneOrientation: ' + result);
-
-    return result;
+    return clientWidth > clientHeight
+      ? 'landscape'
+      : 'portrait';
   }
+
+  , _getElementStyle = (el, styleName) => window
+    .getComputedStyle(el, null)
+    .getPropertyValue(styleName)
 ;

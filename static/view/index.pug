@@ -28,16 +28,15 @@ html(lang='en')
       script(src=_js)
 
     script.
-      var
-        source = {
-          url: 'https://cycjimmy.github.io/staticFiles/media/Sony_test_video_vertical_720x1280.mp4',
-          type: 'mp4'
-        }
-      ;
+      var source = {
+        url: 'https://cycjimmy.github.io/staticFiles/media/Sony_test_video_1280x720.mp4',
+        type: 'mp4'
+      };
 
       var video = new H5VideoPlayer(source, {
         context: '#videoWrapper',
         control: true,
+        orientation: 'landscape',
         disableRotation: true,
         hookInPlay: function () {
           console.log('hookInPlay');
@@ -48,9 +47,7 @@ html(lang='en')
         hookInStop: function () {
           console.log('hookInStop');
         }
-      });
-
-      video.load();
+      }).load();
 
       console.log(video);
 
