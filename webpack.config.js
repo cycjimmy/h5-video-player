@@ -48,9 +48,9 @@ const config = {
     path: IS_DEVELOPMENT
       ? path.resolve('dist')
       : path.resolve('build'),
-    filename: IS_PRODUCTION
-      ? 'H5VideoPlayer.min.js'
-      : 'H5VideoPlayer.js',
+    filename: packageJson.name.replace(/^.+\//g, '') + (() => IS_PRODUCTION
+      ? '.min.js'
+      : '.js')(),
     library: 'H5VideoPlayer',
     libraryTarget: 'umd',
     libraryExport: 'default'
@@ -76,9 +76,6 @@ const config = {
       // Style
       {
         test: /\.scss$/,
-        exclude: [
-          path.resolve('node_modules'),
-        ],
         use: [
           {
             loader: 'style-loader'
@@ -114,13 +111,6 @@ const config = {
       // Pug template
       {
         test: /\.pug$/,
-        include: [
-          path.resolve('src'),
-          path.resolve('static')
-        ],
-        exclude: [
-          path.resolve('node_modules')
-        ],
         loader: 'pug-loader'
       }
     ]

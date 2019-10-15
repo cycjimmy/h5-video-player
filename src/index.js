@@ -21,9 +21,7 @@ export default class H5VideoPlayer {
    * @param disableRotation
    * @param picMode
    * @param fixAndroidWechatContinue
-   * @param hookInPlay
-   * @param hookInPause
-   * @param hookInStop
+   * @param hooks
    */
   constructor(source, {
     context = 'body',
@@ -36,12 +34,7 @@ export default class H5VideoPlayer {
     disableRotation = false,
     picMode = false,
     fixAndroidWechatContinue = false,
-    hookInPlay = () => {
-    },
-    hookInPause = () => {
-    },
-    hookInStop = () => {
-    },
+    hooks = {},
   }) {
 
     this.context = isString(context)
@@ -60,10 +53,16 @@ export default class H5VideoPlayer {
       disableRotation,
       picMode,
       fixAndroidWechatContinue,
-      hookInPlay,
-      hookInPause,
-      hookInStop,
     };
+
+    this.hooks = Object.assign({
+      play: () => {
+      },
+      pause: () => {
+      },
+      stop: () => {
+      },
+    }, hooks);
 
     // set context position
     if (_getElementStyle(this.context, 'position') === 'static') {
@@ -178,20 +177,20 @@ export default class H5VideoPlayer {
       if (this.options.autoClose) {
         this._remove();
       }
-      this.options.hookInStop();
+      this.hooks.stop();
     });
   };
 
   play() {
     this.els.video.play();
     this._hiddenPlayBtn();
-    this.options.hookInPlay();
+    this.hooks.play();
   };
 
   pause() {
     this.els.video.pause();
     this._showPlayBtn();
-    this.options.hookInPause();
+    this.hooks.pause();
   };
 
   _showPlayBtn() {

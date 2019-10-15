@@ -1,18 +1,17 @@
 {
-  "name": "h5-video-player",
-  "version": "1.2.0",
+  "name": "@cycjimmy/h5-video-player",
+  "version": "2.0.0",
   "description": "Browser full screen H5 video player",
-  "main": "build/H5VideoPlayer.js",
+  "main": "build/h5-video-player.js",
   "scripts": {
     "test": "jest",
     "start": "cross-env NODE_ENV=development webpack --display-modules --display-reasons --display-error-details --watch --color",
     "build": "cross-env NODE_ENV=production webpack --progress --optimize-minimize && webpack --progress --display-modules --display-reasons --display-error-details --color",
-    "deploy": "gulp deploy",
-    "prepare": "npm run build"
+    "build:dev": "cross-env NODE_ENV=development webpack --display-modules --display-reasons --display-error-details --color"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cycdpo/h5-video-player.git"
+    "url": "git+https://github.com/cycjimmy/h5-video-player.git"
   },
   "keywords": [
     "h5",
@@ -21,9 +20,9 @@
   "author": "cycjimmy <cycjimmy@gmail.com> (https://github.com/cycjimmy)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cycdpo/h5-video-player/issues"
+    "url": "https://github.com/cycjimmy/h5-video-player/issues"
   },
-  "homepage": "https://github.com/cycdpo/h5-video-player#readme",
+  "homepage": "https://github.com/cycjimmy/h5-video-player#readme",
   "dependencies": {
     "@cycjimmy/awesome-js-funcs": "^1.0.1",
     "@cycjimmy/sass-lib": "^0.1.0"
@@ -31,6 +30,7 @@
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-object-assign": "^7.2.0",
     "@babel/preset-env": "^7.6.3",
     "autoprefixer": "^9.6.5",
     "babel-jest": "^24.9.0",
@@ -40,8 +40,6 @@
     "clean-webpack-plugin": "^3.0.0",
     "cross-env": "^6.0.3",
     "css-loader": "^3.2.0",
-    "gh-pages": "^2.1.1",
-    "gulp": "^4.0.2",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.9.0",
     "node-sass": "^4.12.0",

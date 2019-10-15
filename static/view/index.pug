@@ -38,14 +38,16 @@ html(lang='en')
         control: true,
         orientation: 'landscape',
         disableRotation: true,
-        hookInPlay: function () {
-          console.log('hookInPlay');
-        },
-        hookInPause: function () {
-          console.log('hookInPause');
-        },
-        hookInStop: function () {
-          console.log('hookInStop');
+        hooks: {
+          play: function () {
+            console.log('Hook: play');
+          },
+          pause: function () {
+            console.log('Hook: pause');
+          },
+          stop: function () {
+            console.log('Hook: stop');
+          }
         }
       }).load();
 

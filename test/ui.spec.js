@@ -1,4 +1,4 @@
-import H5VideoPlayer from '../dist/H5VideoPlayer';
+import H5VideoPlayer from '../build/h5-video-player.min';
 
 describe('ui spec', () => {
   const
