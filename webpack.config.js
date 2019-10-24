@@ -8,6 +8,9 @@ const
   , HtmlWebpackPlugin = require('html-webpack-plugin')
   , TerserPlugin = require('terser-webpack-plugin')
   , {CleanWebpackPlugin} = require('clean-webpack-plugin')
+
+  // config
+  , terserConfig = require('@cycjimmy/config-lib/terserWebpackPlugin/2.x/production')
 ;
 
 const
@@ -18,26 +21,7 @@ const
 
 const OPTIMIZATION_OPTIONS = {
   minimize: true,
-  minimizer: [new TerserPlugin({
-    extractComments: false,
-    terserOptions: {
-      ie8: false,
-      safari10: true,
-      ecma: 5,
-      output: {
-        comments: /^!/,
-        beautify: false
-      },
-      compress: {
-        drop_debugger: true,
-        drop_console: true,
-        collapse_vars: true,
-        reduce_vars: true
-      },
-      warnings: false,
-      sourceMap: true
-    },
-  })],
+  minimizer: [new TerserPlugin(terserConfig)],
 };
 
 const config = {

@@ -33,16 +33,16 @@ $ yarn add @cycjimmy/h5-video-player
 ```
 
 ## Use
-  ```javascript
-  import H5VideoPlayer from '@cycjimmy/h5-video-player';
-  # OR
-  const H5VideoPlayer = require('@cycjimmy/h5-video-player');
-  ```
+```javascript
+import H5VideoPlayer from '@cycjimmy/h5-video-player';
+# OR
+const H5VideoPlayer = require('@cycjimmy/h5-video-player');
+```
 
-  ```javascript
-  const videoPlayer = new H5VideoPlayer(source, [, options]);
-  videoPlayer.load();
-  ```
+```javascript
+const videoPlayer = new H5VideoPlayer(source, [, options]);
+videoPlayer.load();
+```
 
 * `source`: Video source allows three types
   * [String]: Video url. E.g: `'video.mp4'`
