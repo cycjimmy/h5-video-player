@@ -19,7 +19,7 @@ export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 export const IS_DEPLOYMENT = process.env.NODE_ENV === 'deployment';
 
 export const input = './src/index.js';
-export const name = 'h5Pages';
+export const name = 'H5VideoPlayer';
 export const banner = myBanner(pkg);
 
 export const plugins = [
