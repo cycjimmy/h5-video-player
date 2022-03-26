@@ -82,3 +82,39 @@ To use via a CDN include this in your HTML:
 <script src="https://cdn.jsdelivr.net/npm/@cycjimmy/h5-video-player@3/dist/h5-video-player.umd.min.js"></script>
 ```
 
+<!-- Links: -->
+[npm-image]: https://img.shields.io/npm/v/@cycjimmy/h5-video-player
+[npm-url]: https://npmjs.org/package/@cycjimmy/h5-video-player
+[npm-bundle-size-image]: https://img.shields.io/bundlephobia/min/@cycjimmy/h5-video-player
+
+[download-image]: https://img.shields.io/npm/dt/@cycjimmy/h5-video-player
+[download-url]: https://npmjs.org/package/@cycjimmy/h5-video-player
+
+[jsdelivr-image]: https://img.shields.io/jsdelivr/npm/hy/@cycjimmy/h5-video-player
+[jsdelivr-url]: https://www.jsdelivr.com/package/npm/@cycjimmy/h5-video-player
+
+[workflows-badge-image]: https://github.com/cycjimmy/h5-video-player/workflows/Test%20CI/badge.svg
+
+[libraries-status-image]: https://img.shields.io/librariesio/release/npm/@cycjimmy/h5-video-player
+[libraries-sourcerank-image]: https://img.shields.io/librariesio/sourcerank/npm/@cycjimmy/h5-video-player
+[libraries-status-url]: https://libraries.io/github/cycjimmy/h5-video-player
+[libraries-sourcerank-url]: https://libraries.io/npm/@cycjimmy%2Fh5-video-player
+
+[coverage-image]: https://img.shields.io/coveralls/github/cycjimmy/h5-video-player
+[coverage-url]: https://coveralls.io/github/cycjimmy/h5-video-player
+
+[release-date-image]: https://img.shields.io/github/release-date/cycjimmy/h5-video-player
+[release-url]: https://github.com/cycjimmy/h5-video-player/releases
+
+[rollup-image]: https://img.shields.io/github/package-json/dependency-version/cycjimmy/h5-video-player/dev/rollup
+[rollup-url]: https://github.com/rollup/rollup
+
+[semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
+[semantic-url]: https://github.com/semantic-release/semantic-release
+
+[jest-image]: https://img.shields.io/badge/tested_with-jest-99424f.svg
+[jest-url]: https://github.com/facebook/jest
+
+[license-image]: https://img.shields.io/npm/l/@cycjimmy/h5-video-player
+
+[github-pages-url]: https://cycjimmy.github.io/h5-video-player/
