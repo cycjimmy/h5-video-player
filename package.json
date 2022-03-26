@@ -1,6 +1,6 @@
 {
   "name": "@cycjimmy/h5-video-player",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Browser full screen H5 video player",
   "type": "module",
   "main": "dist/h5-video-player.cjs",
