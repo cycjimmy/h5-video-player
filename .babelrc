@@ -1,24 +1,10 @@
 {
   "presets": [
     [
-      "@babel/preset-env",
-      {
-        "loose": true,
-        "modules": false
-      }
+      "@babel/preset-env"
     ]
   ],
-  "env": {
-    "test": {
-      "presets": [
-        [
-          "@babel/preset-env"
-        ]
-      ]
-    }
-  },
   "plugins": [
-    "@babel/plugin-syntax-dynamic-import",
-    "@babel/plugin-transform-object-assign"
+    "@babel/plugin-syntax-dynamic-import"
   ]
 }

@@ -1,31 +1,23 @@
 # H5 Video Player
 
-[![NPM version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
-[![David deps][david-image]][david-url]
-[![devDependencies Status][david-dev-image]][david-dev-url]
-[![npm download][download-image]][download-url]
-[![jsdelivr][jsdelivr-image]][jsdelivr-url]
+![][workflows-badge-image]
+[![libraries dependency status][libraries-status-image]][libraries-status-url]
+[![libraries sourcerank][libraries-sourcerank-image]][libraries-sourcerank-url]
+[![Coverage Status][coverage-image]][coverage-url]
+[![Release date][release-date-image]][release-url]
+[![rollup][rollup-image]][rollup-url]
+[![semantic-release][semantic-image]][semantic-url]
+[![jest][jest-image]][jest-url]
 [![npm license][license-image]][download-url]
 
-[npm-image]: https://img.shields.io/npm/v/@cycjimmy/h5-video-player.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/@cycjimmy/h5-video-player
-[travis-image]: https://img.shields.io/travis/cycjimmy/h5-video-player.svg?style=flat-square
-[travis-url]: https://travis-ci.org/cycjimmy/h5-video-player
-[david-image]: https://img.shields.io/david/cycjimmy/h5-video-player.svg?style=flat-square
-[david-url]: https://david-dm.org/cycjimmy/h5-video-player
-[david-dev-image]: https://david-dm.org/cycjimmy/h5-video-player/dev-status.svg?style=flat-square
-[david-dev-url]: https://david-dm.org/cycjimmy/h5-video-player?type=dev
-[download-image]: https://img.shields.io/npm/dm/@cycjimmy/h5-video-player.svg?style=flat-square
-[download-url]: https://npmjs.org/package/@cycjimmy/h5-video-player
-[jsdelivr-image]: https://data.jsdelivr.com/v1/package/npm/@cycjimmy/h5-video-player/badge
-[jsdelivr-url]: https://www.jsdelivr.com/package/npm/@cycjimmy/h5-video-player
-[license-image]: https://img.shields.io/npm/l/@cycjimmy/h5-video-player.svg?style=flat-square
-
-* Browser full screen H5 video player. ([Releases](https://github.com/cycjimmy/h5-video-player/releases) | [Demo](https://cycjimmy.github.io/h5-video-player/))
+* Browser full screen H5 video player. ([Demo][github-pages-url])
 * **[h5-video-player](https://github.com/cycdpo/h5-video-player) has been renamed to @cycjimmy/h5-video-player for scoped NPM package.**
 
 ## Install
+[![NPM version][npm-image]][npm-url]
+[![NPM bundle size][npm-bundle-size-image]][npm-url]
+[![npm download][download-image]][download-url]
+
 ```shell
 $ npm install @cycjimmy/h5-video-player --save
 # or
@@ -72,10 +64,10 @@ videoPlayer.load();
 ### Use in browser
 ```html
 <div id="videoWrapper"></div>
-<script src="h5-video-player.min.js"></script>
+<script src="h5-video-player.umd.min.js"></script>
 <script>
-  var source = 'media/video.mp4';
-  var video = new H5VideoPlayer(source, {
+  const source = 'media/video.mp4';
+  const video = new H5VideoPlayer(source, {
     context: '#videoWrapper',
     [...options]
   }).load();
@@ -83,8 +75,10 @@ videoPlayer.load();
 ```
 
 ## CDN
-To use via a CDN include this in your html:
+[![jsdelivr][jsdelivr-image]][jsdelivr-url]
+
+To use via a CDN include this in your HTML:
 ```text
-<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/h5-video-player@2/build/h5-video-player.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/h5-video-player@3/dist/h5-video-player.umd.min.js"></script>
 ```
 
