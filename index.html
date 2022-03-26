@@ -1,37 +1,57 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>H5 Video Player Test</title><base href="./"><style>* {
-  margin: 0;
-  padding: 0;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>H5 Video Player Demo</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <link rel="shortcut icon" href="./favicon.ico">
 
-html, body {
-  height: 100%;
-}
-
-#videoWrapper {
-  width: 100%;
-  height: 100%;
-}
-</style></head><body><div id="videoWrapper"></div><script src="h5-video-player.js"></script><script>var source = {
-  url: 'https://cycjimmy.github.io/staticFiles/media/Sony_test_video_1280x720.mp4',
-  type: 'mp4'
-};
-
-var video = new H5VideoPlayer(source, {
-  context: '#videoWrapper',
-  control: true,
-  orientation: 'landscape',
-  disableRotation: true,
-  hooks: {
-    play: function () {
-      console.log('Hook: play');
-    },
-    pause: function () {
-      console.log('Hook: pause');
-    },
-    stop: function () {
-      console.log('Hook: stop');
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
     }
-  }
-}).load();
 
-console.log(video);</script></body></html>
+    html, body {
+      height: 100%;
+    }
+
+    #video-wrapper {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+<div id="video-wrapper"></div>
+<script src="./h5-video-player.umd.js"></script>
+<script>
+  const source = {
+    url: 'https://cycjimmy.github.io/staticFiles/media/Sony_test_video_1280x720.mp4',
+    type: 'mp4'
+  };
+
+  const video = new H5VideoPlayer(source, {
+    context: '#video-wrapper',
+    control: true,
+    orientation: 'landscape',
+    disableRotation: true,
+    hooks: {
+      play: function () {
+        console.log('Hook: play');
+      },
+      pause: function () {
+        console.log('Hook: pause');
+      },
+      stop: function () {
+        console.log('Hook: stop');
+      }
+    }
+  }).load();
+
+  console.log(video);
+</script>
+</body>
+</html>
