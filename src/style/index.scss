@@ -1,4 +1,4 @@
-@import "../../node_modules/@cycjimmy/sass-lib";
+@import "~@cycjimmy/sass-lib";
 
 %keepCenter {
   @include fix-center(-100%);
