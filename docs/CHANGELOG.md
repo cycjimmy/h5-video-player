@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/cycjimmy/h5-video-player/compare/v3.0.0...v3.0.1) (2022-06-21)
+
+
+### Bug Fixes
+
+* remove @rollup/plugin-commonjs and fix jest ([aaa9414](https://github.com/cycjimmy/h5-video-player/commit/aaa9414e20712d34c8b1379eb670ae4a0c707109))
+
 # [3.0.0](https://github.com/cycjimmy/h5-video-player/compare/v2.1.0...v3.0.0) (2022-03-26)
 
 
