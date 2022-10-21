@@ -6,17 +6,14 @@
 
   function ownKeys(object, enumerableOnly) {
     var keys = Object.keys(object);
-
     if (Object.getOwnPropertySymbols) {
       var symbols = Object.getOwnPropertySymbols(object);
       enumerableOnly && (symbols = symbols.filter(function (sym) {
         return Object.getOwnPropertyDescriptor(object, sym).enumerable;
       })), keys.push.apply(keys, symbols);
     }
-
     return keys;
   }
-
   function _objectSpread2(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = null != arguments[i] ? arguments[i] : {};
@@ -26,16 +23,13 @@
         Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
       });
     }
-
     return target;
   }
-
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
     }
   }
-
   function _defineProperties(target, props) {
     for (var i = 0; i < props.length; i++) {
       var descriptor = props[i];
@@ -45,7 +39,6 @@
       Object.defineProperty(target, descriptor.key, descriptor);
     }
   }
-
   function _createClass(Constructor, protoProps, staticProps) {
     if (protoProps) _defineProperties(Constructor.prototype, protoProps);
     if (staticProps) _defineProperties(Constructor, staticProps);
@@ -54,7 +47,6 @@
     });
     return Constructor;
   }
-
   function _defineProperty(obj, key, value) {
     if (key in obj) {
       Object.defineProperty(obj, key, {
@@ -66,7 +58,6 @@
     } else {
       obj[key] = value;
     }
-
     return obj;
   }
 
@@ -90,11 +81,9 @@
       });
       return arr;
     };
-
     if (Object.entries) {
       return Object.entries(obj);
     }
-
     return replaceFunc(obj);
   });
 
@@ -107,7 +96,6 @@
   var addStyles = ((element, styles) => {
     entries(styles).forEach(_ref => {
       var [k, v] = _ref;
-
       if (Object.prototype.hasOwnProperty.call(styles, k)) {
         // eslint-disable-next-line no-param-reassign
         element.style[k] = v;
@@ -153,12 +141,10 @@
    * @param orientation
    * @returns {string}
    */
-
   var wrapperTemplate = (function (_ref) {
     var style = _ref.style,
-        source = _ref.source,
-        orientation = _ref.orientation;
-
+      source = _ref.source,
+      orientation = _ref.orientation;
     /**
      * handleSourceHtml
      * @returns {string|*}
@@ -171,33 +157,26 @@
           return previous + current;
         }, '');
       }
-
       if (isObject(source)) {
         return "<source src=\"".concat(source.url, "\" type=\"video/").concat(source.type, "\">");
       }
-
       if (isString(source)) {
         return "<source src=\"".concat(source, "\">");
       }
-
       return '';
     };
-
     return "\n<div class=\"".concat(style.videoWrapperForConstraintRatio, "\">\n  <video class=\"").concat(style.video, "\" width=\"100%\" preload=\"auto\"\n  x-webkit-airplay=\"allow\" webkit-playsinline=\"true\" playsinline\n  x5-video-player-type=\"h5\" x5-video-player-fullscreen=\"true\"\n  x5-video-orientation=\"").concat(orientation, "\">\n    ").concat(handleSourceHtml(), "\n    I'm sorry; your browser doesn't support HTML5 video.\n  </video>\n</div>\n");
   });
 
   function styleInject(css, ref) {
     if (ref === void 0) ref = {};
     var insertAt = ref.insertAt;
-
     if (!css || typeof document === 'undefined') {
       return;
     }
-
     var head = document.head || document.getElementsByTagName('head')[0];
     var style = document.createElement('style');
     style.type = 'text/css';
-
     if (insertAt === 'top') {
       if (head.firstChild) {
         head.insertBefore(style, head.firstChild);
@@ -207,7 +186,6 @@
     } else {
       head.appendChild(style);
     }
-
     if (style.styleSheet) {
       style.styleSheet.cssText = css;
     } else {
@@ -220,17 +198,14 @@
   styleInject(css_248z);
 
   var _orientationchangeEvt = 'onorientationchange' in window ? 'orientationchange' : 'resize';
-
   var _judgePhoneOrientation = function _judgePhoneOrientation() {
     var clientWidth = document.documentElement.clientWidth;
     var clientHeight = document.documentElement.clientHeight;
     return clientWidth > clientHeight ? 'landscape' : 'portrait';
   };
-
   var _getElementStyle = function _getElementStyle(el, styleName) {
     return window.getComputedStyle(el, null).getPropertyValue(styleName);
   };
-
   var H5VideoPlayer = /*#__PURE__*/function () {
     /**
      * @param source
@@ -248,30 +223,28 @@
      */
     function H5VideoPlayer(source, _ref) {
       var _ref$context = _ref.context,
-          context = _ref$context === void 0 ? 'body' : _ref$context,
-          _ref$control = _ref.control,
-          control = _ref$control === void 0 ? false : _ref$control,
-          _ref$autoPlay = _ref.autoPlay,
-          autoPlay = _ref$autoPlay === void 0 ? false : _ref$autoPlay,
-          _ref$autoClose = _ref.autoClose,
-          autoClose = _ref$autoClose === void 0 ? true : _ref$autoClose,
-          _ref$preload = _ref.preload,
-          preload = _ref$preload === void 0 ? true : _ref$preload,
-          _ref$orientation = _ref.orientation,
-          orientation = _ref$orientation === void 0 ? 'portrait' : _ref$orientation,
-          _ref$aspectRatio = _ref.aspectRatio,
-          aspectRatio = _ref$aspectRatio === void 0 ? 0 : _ref$aspectRatio,
-          _ref$disableRotation = _ref.disableRotation,
-          disableRotation = _ref$disableRotation === void 0 ? false : _ref$disableRotation,
-          _ref$picMode = _ref.picMode,
-          picMode = _ref$picMode === void 0 ? false : _ref$picMode,
-          _ref$fixAndroidWechat = _ref.fixAndroidWechatContinue,
-          fixAndroidWechatContinue = _ref$fixAndroidWechat === void 0 ? false : _ref$fixAndroidWechat,
-          _ref$hooks = _ref.hooks,
-          hooks = _ref$hooks === void 0 ? {} : _ref$hooks;
-
+        context = _ref$context === void 0 ? 'body' : _ref$context,
+        _ref$control = _ref.control,
+        control = _ref$control === void 0 ? false : _ref$control,
+        _ref$autoPlay = _ref.autoPlay,
+        autoPlay = _ref$autoPlay === void 0 ? false : _ref$autoPlay,
+        _ref$autoClose = _ref.autoClose,
+        autoClose = _ref$autoClose === void 0 ? true : _ref$autoClose,
+        _ref$preload = _ref.preload,
+        preload = _ref$preload === void 0 ? true : _ref$preload,
+        _ref$orientation = _ref.orientation,
+        orientation = _ref$orientation === void 0 ? 'portrait' : _ref$orientation,
+        _ref$aspectRatio = _ref.aspectRatio,
+        aspectRatio = _ref$aspectRatio === void 0 ? 0 : _ref$aspectRatio,
+        _ref$disableRotation = _ref.disableRotation,
+        disableRotation = _ref$disableRotation === void 0 ? false : _ref$disableRotation,
+        _ref$picMode = _ref.picMode,
+        picMode = _ref$picMode === void 0 ? false : _ref$picMode,
+        _ref$fixAndroidWechat = _ref.fixAndroidWechatContinue,
+        fixAndroidWechatContinue = _ref$fixAndroidWechat === void 0 ? false : _ref$fixAndroidWechat,
+        _ref$hooks = _ref.hooks,
+        hooks = _ref$hooks === void 0 ? {} : _ref$hooks;
       _classCallCheck(this, H5VideoPlayer);
-
       this.context = isString(context) ? document.querySelector(context) : context;
       this.options = {
         source: source,
@@ -291,12 +264,12 @@
         play: function play() {},
         pause: function pause() {},
         stop: function stop() {}
-      }, hooks); // set context position
+      }, hooks);
 
+      // set context position
       if (_getElementStyle(this.context, 'position') === 'static') {
         this.context.style.position = 'relative';
       }
-
       this.els = {
         container: null,
         wrapper: null,
@@ -307,12 +280,10 @@
       };
       this.initContainer();
       this.initWrapper();
-
       if (this.options.preload) {
         this.init();
       }
     }
-
     _createClass(H5VideoPlayer, [{
       key: "initContainer",
       value: function initContainer() {
@@ -331,25 +302,28 @@
           orientation: this.options.orientation,
           style: style
         });
-        this.els.container.appendChild(this.els.wrapper); // video
+        this.els.container.appendChild(this.els.wrapper);
 
+        // video
         this.els.videoWrapperForConstraintRatio = this.els.wrapper.querySelector(".".concat(style.videoWrapperForConstraintRatio));
-        this.els.video = this.els.wrapper.querySelector(".".concat(style.video)); // mask: used to control video
+        this.els.video = this.els.wrapper.querySelector(".".concat(style.video));
 
+        // mask: used to control video
         this.els.mask = document.createElement('div');
         this.els.mask.classList.add(style.mask);
-        this.els.container.appendChild(this.els.mask); // playButton
+        this.els.container.appendChild(this.els.mask);
 
+        // playButton
         if (this.options.control) {
           this.els.playButton = document.createElement('div');
-          this.els.playButton.classList.add(style.playButtonWrapper); // picMode
+          this.els.playButton.classList.add(style.playButtonWrapper);
 
+          // picMode
           if (!this.options.picMode) {
             this.els.playButton.innerHTML = playButtonTemplate({
               style: style
             });
           }
-
           this.els.container.appendChild(this.els.playButton);
         }
       }
@@ -364,24 +338,18 @@
         if (!this.context.contains(this.els.container)) {
           this.init();
         }
-
         this.els.container.classList.add(style.show);
-
         this._assignWrapperStyle();
-
         this.eventBind();
-
         if (this.options.autoPlay) {
           this.play();
         }
-
         return this;
       }
     }, {
       key: "eventBind",
       value: function eventBind() {
         var _this = this;
-
         if (this.options.control) {
           this.els.mask.addEventListener('click', function () {
             if (_this._isPlaying()) {
@@ -400,14 +368,11 @@
             }
           });
         }
-
         this.els.video.addEventListener('ended', function () {
           _this._showPlayBtn();
-
           if (_this.options.autoClose) {
             _this._remove();
           }
-
           _this.hooks.stop();
         });
       }
@@ -415,18 +380,14 @@
       key: "play",
       value: function play() {
         this.els.video.play();
-
         this._hiddenPlayBtn();
-
         this.hooks.play();
       }
     }, {
       key: "pause",
       value: function pause() {
         this.els.video.pause();
-
         this._showPlayBtn();
-
         this.hooks.pause();
       }
     }, {
@@ -457,15 +418,12 @@
       key: "_assignWrapperStyle",
       value: function _assignWrapperStyle() {
         var _this2 = this;
-
         var containerRect = function containerRect() {
           return _this2.els.container.getBoundingClientRect();
         };
-
         var _changeStyle = function _changeStyle() {
           var containerRectWidth = containerRect().width;
           var containerRectHeight = containerRect().height;
-
           if (_judgePhoneOrientation() === _this2.options.orientation) {
             addStyles(_this2.els.wrapper, {
               width: "".concat(containerRectWidth, "px"),
@@ -479,14 +437,13 @@
               height: "".concat(containerRectWidth, "px"),
               transform: 'rotate(-90deg)'
             });
-          } // set videoWrapperForConstraintRatio width&height
+          }
 
-
+          // set videoWrapperForConstraintRatio width&height
           setTimeout(function () {
             var wrapperWidth = Number.parseInt(_this2.els.wrapper.style.width, 10);
             var wrapperHeight = Number.parseInt(_this2.els.wrapper.style.height, 10);
             var preComputedHeight = wrapperWidth / _this2.options.aspectRatio;
-
             if (preComputedHeight >= wrapperHeight) {
               // based on wrapperWidth
               addStyles(_this2.els.videoWrapperForConstraintRatio, {
@@ -502,19 +459,15 @@
             }
           }, 0);
         };
-
         var _changeOrientation = function _changeOrientation() {
           window.removeEventListener(_orientationchangeEvt, _changeOrientation);
           setTimeout(function () {
             _changeStyle();
-
             window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
           }, 400);
         };
-
         if (this.options.disableRotation) {
           _changeStyle();
-
           window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
         } else {
           addStyles(this.els.wrapper, {
@@ -524,7 +477,6 @@
         }
       }
     }]);
-
     return H5VideoPlayer;
   }();
 
