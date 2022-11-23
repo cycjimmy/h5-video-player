@@ -92,7 +92,6 @@
    * @param element
    * @param styles(obj)
    */
-
   var addStyles = ((element, styles) => {
     entries(styles).forEach(_ref => {
       var [k, v] = _ref;
