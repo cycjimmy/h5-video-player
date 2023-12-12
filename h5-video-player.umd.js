@@ -25,6 +25,20 @@
     }
     return e;
   }
+  function _toPrimitive(t, r) {
+    if ("object" != typeof t || !t) return t;
+    var e = t[Symbol.toPrimitive];
+    if (void 0 !== e) {
+      var i = e.call(t, r || "default");
+      if ("object" != typeof i) return i;
+      throw new TypeError("@@toPrimitive must return a primitive value.");
+    }
+    return ("string" === r ? String : Number)(t);
+  }
+  function _toPropertyKey(t) {
+    var i = _toPrimitive(t, "string");
+    return "symbol" == typeof i ? i : String(i);
+  }
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
@@ -60,20 +74,6 @@
       obj[key] = value;
     }
     return obj;
-  }
-  function _toPrimitive(input, hint) {
-    if (typeof input !== "object" || input === null) return input;
-    var prim = input[Symbol.toPrimitive];
-    if (prim !== undefined) {
-      var res = prim.call(input, hint || "default");
-      if (typeof res !== "object") return res;
-      throw new TypeError("@@toPrimitive must return a primitive value.");
-    }
-    return (hint === "string" ? String : Number)(input);
-  }
-  function _toPropertyKey(arg) {
-    var key = _toPrimitive(arg, "string");
-    return typeof key === "symbol" ? key : String(key);
   }
 
   /**
