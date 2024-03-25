@@ -298,7 +298,7 @@
         this.init();
       }
     }
-    _createClass(H5VideoPlayer, [{
+    return _createClass(H5VideoPlayer, [{
       key: "initContainer",
       value: function initContainer() {
         // container
@@ -491,7 +491,6 @@
         }
       }
     }]);
-    return H5VideoPlayer;
   }();
 
   return H5VideoPlayer;
