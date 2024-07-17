@@ -1,3 +1,11 @@
+## [3.0.2](https://github.com/cycjimmy/h5-video-player/compare/v3.0.1...v3.0.2) (2024-07-17)
+
+
+### Bug Fixes
+
+* fix eslint version ([0a46942](https://github.com/cycjimmy/h5-video-player/commit/0a46942fa7b5572bdb1eac8d442dc30b7acef08b))
+* upgrade rollup to v4 ([e319dff](https://github.com/cycjimmy/h5-video-player/commit/e319dff7469765f6a05de046ece62a45cd3125b4))
+
 ## [3.0.1](https://github.com/cycjimmy/h5-video-player/compare/v3.0.0...v3.0.1) (2022-06-21)
 
 
