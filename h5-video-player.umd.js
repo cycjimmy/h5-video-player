@@ -459,16 +459,16 @@
             }
           }, 0);
         };
-        var _changeOrientation = function _changeOrientation() {
-          window.removeEventListener(_orientationchangeEvt, _changeOrientation);
+        var _changeOrientation2 = function _changeOrientation() {
+          window.removeEventListener(_orientationchangeEvt, _changeOrientation2);
           setTimeout(function () {
             _changeStyle();
-            window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
+            window.addEventListener(_orientationchangeEvt, _changeOrientation2, false);
           }, 400);
         };
         if (this.options.disableRotation) {
           _changeStyle();
-          window.addEventListener(_orientationchangeEvt, _changeOrientation, false);
+          window.addEventListener(_orientationchangeEvt, _changeOrientation2, false);
         } else {
           addStyles(this.els.wrapper, {
             width: "".concat(containerRect().width, "px"),
