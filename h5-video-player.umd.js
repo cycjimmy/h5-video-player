@@ -67,14 +67,14 @@
    * @param str
    * @returns {boolean}
    */
-  var isString = (str => typeof str === 'string' && str.constructor === String);
+  var isString = str => typeof str === 'string' && str.constructor === String;
 
   /**
    * compatibility scheme for traversing object property methods Object.entries
    * @param obj
    * @returns {Iterator.<*>|*}
    */
-  var entries = (obj => {
+  var entries = obj => {
     var replaceFunc = o => {
       var arr = [];
       Object.keys(o).forEach(key => {
@@ -86,14 +86,14 @@
       return Object.entries(obj);
     }
     return replaceFunc(obj);
-  });
+  };
 
   /**
    * element add styles
    * @param element
    * @param styles(obj)
    */
-  var addStyles = ((element, styles) => {
+  var addStyles = (element, styles) => {
     entries(styles).forEach(_ref => {
       var [k, v] = _ref;
       if (Object.prototype.hasOwnProperty.call(styles, k)) {
@@ -101,14 +101,14 @@
         element.style[k] = v;
       }
     });
-  });
+  };
 
   /**
    * judge video playing
    * @param video
    * @return {boolean}
    */
-  var isVideoPlaying = (video => video.currentTime > 0 && !video.paused && !video.ended && video.readyState > 2);
+  var isVideoPlaying = video => video.currentTime > 0 && !video.paused && !video.ended && video.readyState > 2;
 
   /**
    * playButton
@@ -125,14 +125,14 @@
    * @param arr
    * @returns {boolean}
    */
-  var isArray = (arr => Object.prototype.toString.call(arr).slice(8, -1) === 'Array');
+  var isArray = arr => Object.prototype.toString.call(arr).slice(8, -1) === 'Array';
 
   /**
    * determine an object
    * @param o
    * @returns {boolean}
    */
-  var isObject = (o => Object.prototype.toString.call(o) === '[object Object]');
+  var isObject = o => Object.prototype.toString.call(o) === '[object Object]';
 
   /**
    * wrapper
