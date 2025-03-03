@@ -14,7 +14,7 @@
     }
   }
   function _createClass(e, r, t) {
-    return _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
+    return r && _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
       writable: false
     }), e;
   }
@@ -50,7 +50,7 @@
   function _toPrimitive(t, r) {
     if ("object" != typeof t || !t) return t;
     var e = t[Symbol.toPrimitive];
-    if (undefined !== e) {
+    if (void 0 !== e) {
       var i = e.call(t, r);
       if ("object" != typeof i) return i;
       throw new TypeError("@@toPrimitive must return a primitive value.");
@@ -169,7 +169,7 @@
   });
 
   function styleInject(css, ref) {
-    if (ref === undefined) ref = {};
+    if (ref === void 0) ref = {};
     var insertAt = ref.insertAt;
     if (typeof document === 'undefined') {
       return;
@@ -223,27 +223,27 @@
      */
     function H5VideoPlayer(source, _ref) {
       var _ref$context = _ref.context,
-        context = _ref$context === undefined ? 'body' : _ref$context,
+        context = _ref$context === void 0 ? 'body' : _ref$context,
         _ref$control = _ref.control,
-        control = _ref$control === undefined ? false : _ref$control,
+        control = _ref$control === void 0 ? false : _ref$control,
         _ref$autoPlay = _ref.autoPlay,
-        autoPlay = _ref$autoPlay === undefined ? false : _ref$autoPlay,
+        autoPlay = _ref$autoPlay === void 0 ? false : _ref$autoPlay,
         _ref$autoClose = _ref.autoClose,
-        autoClose = _ref$autoClose === undefined ? true : _ref$autoClose,
+        autoClose = _ref$autoClose === void 0 ? true : _ref$autoClose,
         _ref$preload = _ref.preload,
-        preload = _ref$preload === undefined ? true : _ref$preload,
+        preload = _ref$preload === void 0 ? true : _ref$preload,
         _ref$orientation = _ref.orientation,
-        orientation = _ref$orientation === undefined ? 'portrait' : _ref$orientation,
+        orientation = _ref$orientation === void 0 ? 'portrait' : _ref$orientation,
         _ref$aspectRatio = _ref.aspectRatio,
-        aspectRatio = _ref$aspectRatio === undefined ? 0 : _ref$aspectRatio,
+        aspectRatio = _ref$aspectRatio === void 0 ? 0 : _ref$aspectRatio,
         _ref$disableRotation = _ref.disableRotation,
-        disableRotation = _ref$disableRotation === undefined ? false : _ref$disableRotation,
+        disableRotation = _ref$disableRotation === void 0 ? false : _ref$disableRotation,
         _ref$picMode = _ref.picMode,
-        picMode = _ref$picMode === undefined ? false : _ref$picMode,
+        picMode = _ref$picMode === void 0 ? false : _ref$picMode,
         _ref$fixAndroidWechat = _ref.fixAndroidWechatContinue,
-        fixAndroidWechatContinue = _ref$fixAndroidWechat === undefined ? false : _ref$fixAndroidWechat,
+        fixAndroidWechatContinue = _ref$fixAndroidWechat === void 0 ? false : _ref$fixAndroidWechat,
         _ref$hooks = _ref.hooks,
-        hooks = _ref$hooks === undefined ? {} : _ref$hooks;
+        hooks = _ref$hooks === void 0 ? {} : _ref$hooks;
       _classCallCheck(this, H5VideoPlayer);
       this.context = isString(context) ? document.querySelector(context) : context;
       this.options = {
