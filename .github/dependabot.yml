@@ -24,9 +24,13 @@ updates:
       - dependencies
     open-pull-requests-limit: 10
     ignore:
-      # preset-env 8 requires @babel/core 8, and babel only backs jest here.
-      # Allowing it produces a pull request whose `npm ci` can never resolve.
+      # preset-env 8 and core 8 have to land together: preset-env 7 peers on
+      # @babel/core ^7, so bumping either one alone fails to resolve and babel
+      # only backs jest in this repository.
       - dependency-name: '@babel/preset-env'
+        update-types:
+          - version-update:semver-major
+      - dependency-name: '@babel/core'
         update-types:
           - version-update:semver-major
     # @babel/* and jest* are left ungrouped on purpose: their majors need to be
