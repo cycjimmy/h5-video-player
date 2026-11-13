@@ -1,37 +1,42 @@
-import isArray from '@cycjimmy/awesome-js-funcs/esm/judgeBasic/isArray';
-import isObject from '@cycjimmy/awesome-js-funcs/esm/judgeBasic/isObject';
-import isString from '@cycjimmy/awesome-js-funcs/esm/judgeBasic/isString';
+import isArray from '@cycjimmy/awesome-js-funcs/judgeBasic/isArray'
+import isObject from '@cycjimmy/awesome-js-funcs/judgeBasic/isObject'
+import isString from '@cycjimmy/awesome-js-funcs/judgeBasic/isString'
 
 /**
- * wrapper
- * @param style
- * @param source
- * @param orientation
- * @returns {string}
+ * Render the video wrapper markup.
+ *
+ * @param options The template options.
+ * @param options.style The generated CSS module class names.
+ * @param options.source The video source.
+ * @param options.orientation `'portrait'` or `'landscape'`.
+ * @returns The video wrapper markup.
  */
-export default ({
-  style,
-  source,
-  orientation,
-}) => {
+export default (options) => {
+  const {
+    style,
+    source,
+    orientation,
+  } = options
+
   /**
-   * handleSourceHtml
-   * @returns {string|*}
+   * Build the `<source>` tags for the configured video source.
+   *
+   * @returns The generated `<source>` markup.
    */
   const handleSourceHtml = () => {
     if (isArray(source)) {
       return source
-        .map((s) => `<source src="${s.url}" type="video/${s.type}">`)
-        .reduce((previous, current) => previous + current, '');
+        .map(s => `<source src="${s.url}" type="video/${s.type}">`)
+        .reduce((previous, current) => previous + current, '')
     }
     if (isObject(source)) {
-      return `<source src="${source.url}" type="video/${source.type}">`;
+      return `<source src="${source.url}" type="video/${source.type}">`
     }
     if (isString(source)) {
-      return `<source src="${source}">`;
+      return `<source src="${source}">`
     }
-    return '';
-  };
+    return ''
+  }
 
   return `
 <div class="${style.videoWrapperForConstraintRatio}">
@@ -43,5 +48,5 @@ export default ({
     I'm sorry; your browser doesn't support HTML5 video.
   </video>
 </div>
-`;
-};
+`
+}

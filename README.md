@@ -1,11 +1,11 @@
 # H5 Video Player
 
-![][workflows-badge-image]
+![Test CI][workflows-badge-image]
 [![libraries dependency status][libraries-status-image]][libraries-status-url]
 [![libraries sourcerank][libraries-sourcerank-image]][libraries-sourcerank-url]
 [![Coverage Status][coverage-image]][coverage-url]
 [![Release date][release-date-image]][release-url]
-[![rollup][rollup-image]][rollup-url]
+[![vite][vite-image]][vite-url]
 [![semantic-release][semantic-image]][semantic-url]
 [![jest][jest-image]][jest-url]
 [![npm license][license-image]][download-url]
@@ -25,22 +25,26 @@ $ yarn add @cycjimmy/h5-video-player
 ```
 
 ## Use
+
+> [!IMPORTANT]
+> Since v4 this package ships **ESM only**. There is no CommonJS build any more:
+> import it from an `.mjs`/`type: module` file or let your bundler handle it.
+> `require('@cycjimmy/h5-video-player')` is no longer supported.
+
 ```javascript
-import H5VideoPlayer from '@cycjimmy/h5-video-player';
-# OR
-const H5VideoPlayer = require('@cycjimmy/h5-video-player');
+import H5VideoPlayer from '@cycjimmy/h5-video-player'
 ```
 
 ```javascript
-const videoPlayer = new H5VideoPlayer(source, [, options]);
-videoPlayer.load();
+const videoPlayer = new H5VideoPlayer(source, options)
+videoPlayer.load()
 ```
 
 * `source`: Video source allows three types
   * [String]: Video url. E.g: `'video.mp4'`
   * [Object]: Video url and type. E.g: `{url: 'video.mp4', type:'mp4'}`
   * [Array]: E.g: `[{url: 'video.mp4', type:'mp4'},{},...]`
-* options
+* `options`: The optional configuration object below.
   * `context`: [Element|String] Context Wrapper Element. Default `'body'`.
   * `control`: [Boolean] Whether the user can control. Default `false`.
   * `autoPlay`: [Boolean] Whether to play immediately after loading. Default `false`.
@@ -74,12 +78,35 @@ videoPlayer.load();
 </script>
 ```
 
+## Breaking changes in v4
+
+* **ESM only.** `dist/h5-video-player.cjs` is gone; `main`, `module` and `exports` all point at `dist/h5-video-player.esm.js`. Use `import` (or a bundler) instead of `require`.
+* **New build toolchain.** rollup was replaced by Vite. The browser bundles keep their names (`h5-video-player.umd.js`, `h5-video-player.umd.min.js`) and the `H5VideoPlayer` global.
+* **Browser baseline.** `.browserslistrc` now targets `defaults`, so IE and Android 4.4 are no longer supported.
+* **Styles are still injected at runtime.** No CSS file has to be imported; the bundled styles are inserted into `document.head` on first import.
+* **Node.js baseline for development.** Building, linting and testing require Node.js `^22.22.2 || >=24.15.0`.
+
+Migrating from v3 only requires replacing `require('@cycjimmy/h5-video-player')` with `import H5VideoPlayer from '@cycjimmy/h5-video-player'`.
+
+## Development
+
+```shell
+$ npm install          # Node ^22.22.2 || >=24.15.0
+$ npm run dev          # Vite dev server with the root index.html
+$ npm run lint         # ESLint (flat config, @antfu/eslint-config)
+$ npm run lint:style   # Stylelint for src/**/*.{css,scss}
+$ npm test             # Jest
+$ npm run package      # build dist/ and assemble .release/
+```
+
+`index.html` in the repository root is the Vite dev entry and imports `src/` directly. `static/index.html` is the GitHub Pages demo: it loads the bundled `h5-video-player.umd.js` through a `<script>` tag and is deployed by `npm run build:deployment`.
+
 ## CDN
 [![jsdelivr][jsdelivr-image]][jsdelivr-url]
 
 To use via a CDN include this in your HTML:
 ```text
-<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/h5-video-player@3/dist/h5-video-player.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/h5-video-player@4/dist/h5-video-player.umd.min.js"></script>
 ```
 
 <!-- Links: -->
@@ -106,8 +133,8 @@ To use via a CDN include this in your HTML:
 [release-date-image]: https://img.shields.io/github/release-date/cycjimmy/h5-video-player
 [release-url]: https://github.com/cycjimmy/h5-video-player/releases
 
-[rollup-image]: https://img.shields.io/github/package-json/dependency-version/cycjimmy/h5-video-player/dev/rollup
-[rollup-url]: https://github.com/rollup/rollup
+[vite-image]: https://img.shields.io/github/package-json/dependency-version/cycjimmy/h5-video-player/dev/vite
+[vite-url]: https://github.com/vitejs/vite
 
 [semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [semantic-url]: https://github.com/semantic-release/semantic-release
