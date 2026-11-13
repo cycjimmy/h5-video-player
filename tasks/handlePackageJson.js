@@ -1,32 +1,34 @@
-/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
-/* eslint no-console: 0 */
-import path from 'path';
-import fs from 'fs-extra';
+import path from 'node:path'
+import fs from 'fs-extra'
 
-const { readJsonSync, outputJsonSync } = fs;
+const { readJsonSync, outputJsonSync } = fs
 
 const jsonData = readJsonSync(
   path.resolve('package.json'),
-);
+)
 
 if (jsonData.scripts) {
-  delete jsonData.scripts;
+  delete jsonData.scripts
 }
 
 if (jsonData.dependencies) {
-  delete jsonData.dependencies;
+  delete jsonData.dependencies
 }
 
 if (jsonData.devDependencies) {
-  delete jsonData.devDependencies;
+  delete jsonData.devDependencies
 }
 
-if (jsonData.publishConfig) {
-  delete jsonData.publishConfig;
+// A scoped package without `publishConfig.access` is published as `restricted`,
+// which fails on a free npm account the first time this package is released.
+// Keep the access level only: the registry and tag are decided by the release
+// tooling, not by the source package.json.
+jsonData.publishConfig = {
+  access: jsonData.publishConfig?.access ?? 'public',
 }
 
 if (jsonData.config) {
-  delete jsonData.config;
+  delete jsonData.config
 }
 
 outputJsonSync(
@@ -35,6 +37,6 @@ outputJsonSync(
   {
     spaces: 2,
   },
-);
+)
 
-console.log('handlePackageJson success!');
+console.log('handlePackageJson success!')
