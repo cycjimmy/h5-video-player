@@ -1,3 +1,16 @@
+# [4.0.0](https://github.com/cycjimmy/h5-video-player/compare/v3.0.2...v4.0.0) (2026-11-13)
+
+
+* build!: migrate from rollup to vite 8, ship ESM only, and add stylelint ([596086c](https://github.com/cycjimmy/h5-video-player/commit/596086c16069708a98652cde09258629d18af83f))
+
+
+### BREAKING CHANGES
+
+* the package no longer ships a CommonJS build and requires an
+ESM-aware runtime or bundler. The build toolchain moved from rollup to vite and
+the browser baseline is now browserslist `defaults`, so IE and Android 4.4 are
+no longer supported.
+
 ## [3.0.2](https://github.com/cycjimmy/h5-video-player/compare/v3.0.1...v3.0.2) (2024-07-17)
 
 

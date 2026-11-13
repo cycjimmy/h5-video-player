@@ -1,7 +1,7 @@
 {
   "name": "@cycjimmy/h5-video-player",
   "type": "module",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "Browser full screen H5 video player",
   "browser": "dist/h5-video-player.umd.min.js",
   "author": "cycjimmy <cycjimmy@gmail.com> (https://github.com/cycjimmy)",
